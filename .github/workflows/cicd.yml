@@ -1,4 +1,4 @@
-on: [ push ]
+---
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,3 +9,4 @@ jobs:
           npm install
           npm run build
  
+'on': [ push ]
