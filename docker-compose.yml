@@ -5,6 +5,7 @@ services:
       - 3000:3000
     depends_on: 
       - db
+      
   db :
     image : mysql
     restart: always
@@ -20,4 +21,12 @@ services:
       MYSQL_ROOT_PASSWORD: sophie
       MYSQL_DATABASE: CUBE
       MYSQL_PASSWORD : sophie
+
+    web:
+      build: .
+      ports:
+        - "3000:3000"
+      volumes:
+        - .:/app
+      command: npm run dev
 
