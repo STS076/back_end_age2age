@@ -10,6 +10,8 @@ module.exports = {
     getAll,
     getById,
     create,
+    phoneValidation,
+    findEmail,
     getUserFavourite,
     getAverageRatingUser,
     getAdvertsSelectedByUser,
@@ -80,6 +82,17 @@ async function getAverageRatingUser(user_id) {
     return await getAverageRatingUser(user_id)
 }
 
+function phoneValidation(phone) {
+    const phoneNumber = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    if (phone.match(phoneNumber)) { return true; }
+    return false;
+}
+function findEmail() {
+    if (db.User.findOne({ where: { user_email_address: params.user_email_address } })) {
+        return true
+    }
+    return false
+}
 async function create(params) {
     function emailValidation(email) {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -91,11 +104,7 @@ async function create(params) {
         if (name.match(validation)) { return true; }
         return false;
     }
-    function phoneValidation(phone) {
-        const phoneNumber = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-        if (phone.match(phoneNumber)) { return true; }
-        return false;
-    }
+
 
     if (emailValidation(params.user_email_address) == false) {
         throw 'this email address is invalid';
