@@ -8,5 +8,15 @@ jobs:
         run: |
           npm install
           npm run build
- 
+  test:
+   runs-on: ubuntu-latest
+   needs: build
+   steps:
+     - uses: actions/checkout@v3
+     - run: npm run e2e:headless
+     - uses: actions/upload-artifact@v3
+       if: ${{ always() }}
+       with:
+         name: e2e-tests
+         path: cypress/videos
 'on': [ push ]
