@@ -1,5 +1,0 @@
-services:
-  web:
-    image: ghcr.io/sts076/back_end_age2age:latest
-		ports:
-			- 80:3000

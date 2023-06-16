@@ -11,7 +11,6 @@ initialize();
 async function initialize() {
   // create db if it doesn't already exist
   const { host, port, user, password, database } = dbConfig.database;
-  console.log(host);
   const connection = mysql.createConnection({ host, user, password, database });
   connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
