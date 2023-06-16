@@ -40,7 +40,7 @@ let phoneNumberCorrect = "0667495721"
 
 describe('user inscription test', function () {
     it('should find true when telephone number format is correct', function () {
-        expect(phoneValidation("0667495721")).toBe(true);
+        expect(phoneValidation("g")).toBe(true);
     });
     it('should find false when telephone number format is incorrect', function () {
         expect(phoneValidation("g")).toBe(false);
