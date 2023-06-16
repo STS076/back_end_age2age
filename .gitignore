@@ -112,3 +112,4 @@ dist
 package-lock.json
 test/*.json
 .vscode/launch.json
+db
