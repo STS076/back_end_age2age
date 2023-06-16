@@ -12,9 +12,14 @@ describe('advert', function () {
     });
 
     it('should fail on POST', function (done) {
-        request.post(advert, { json: true, body: {} }, function (error, response) {
-            expect(response.statusCode).toEqual(400);
-            done();
+        request.post(advert, { json: true, body: {} }, function (error, response, body) {
+            if (error) {
+                console.log('error:', error);
+            } else {
+                expect(response.statusCode).toEqual(400);
+                console.log('body:', body);
+                done();
+            }
         });
     });
 
