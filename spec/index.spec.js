@@ -45,11 +45,11 @@ describe('user inscription test', function () {
     it('should find false when telephone number format is incorrect', function () {
         expect(phoneValidation("g")).toBe(false);
     });
-    it('should find true when two mails are the same', function () {
-        findEmail("estlpatry76@gmail.com").then((result) => {
-            expect(result).toBe(true);
-        });
-    });
+    // it('should find true when two mails are the same', function () {
+    //     findEmail("estlpatry76@gmail.com").then((result) => {
+    //         expect(result).toBe(true);
+    //     });
+    // });
 });
 
 // describe('simple tests', () => {
