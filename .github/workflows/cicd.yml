@@ -13,5 +13,7 @@ jobs:
    needs: build
    steps:
      - uses: actions/checkout@v3
-     - run: npm test
+     - run: |
+     npm i
+     npm test
 'on': [ push ]
