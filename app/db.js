@@ -1,5 +1,4 @@
 // const mysql = require("mysql");
-const dbConfig = require("./config/db.config.json");
 
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
@@ -9,6 +8,13 @@ module.exports = db = {};
 initialize();
 
 async function initialize() {
+  var dbConfig = null
+  try{
+    dbConfig = require("./config/db.config.json");
+  }catch(e){
+  }
+
+  if(dbConfig){
   // create db if it doesn't already exist
   const { host, port, user, password, database } = dbConfig.database;
   const connection = await mysql.createConnection({ host, port, user, password });
@@ -38,4 +44,7 @@ async function initialize() {
 
   // sync all models with database
   await sequelize.sync();
+  }else{
+    console.log("no db config")
+  }
 }
