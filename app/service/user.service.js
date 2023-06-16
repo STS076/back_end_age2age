@@ -87,8 +87,12 @@ function phoneValidation(phone) {
     if (phone.match(phoneNumber)) { return true; }
     return false;
 }
-function findEmail() {
-    if (db.User.findOne({ where: { user_email_address: params.user_email_address } })) {
+async function findEmail(email) {
+    while(db.User == null) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    if (await db.User.findOne({ where: { user_email_address: email } })) {
         return true
     }
     return false

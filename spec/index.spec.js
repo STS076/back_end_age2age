@@ -41,7 +41,9 @@ describe('user inscription test', function () {
         expect(phoneValidation("g")).toBe(false);
     });
     it('should find true when two mails are the same', function () {
-        expect(findEmail("estlpatry76@gmail.com")).toBe(true);
+        findEmail("estlpatry76@gmail.com").then((result) => {
+            expect(result).toBe(true);
+        });
     });
 });
 
