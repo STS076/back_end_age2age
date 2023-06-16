@@ -2,7 +2,9 @@
 jobs:
   publish-hello-docker-image: null
   run: |
-        docker build . --tag ghcr.io/sts076/age2age:latest docker run ghcr.io/sts076/age2age:latest docker push ghcr.io/sts076/age2age:latest
+        docker build . --tag ghcr.io/sts076/age2age:latest 
+        docker run ghcr.io/sts076/age2age:latest 
+        docker push ghcr.io/sts076/age2age:latest
   runs-on: ubuntu-latest
   steps:
     - uses: actions/checkout@v2
