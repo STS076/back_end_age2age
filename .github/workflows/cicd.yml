@@ -25,4 +25,8 @@ jobs:
         with:
           push: true
           tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
+    run: |
+       docker build . --tag ghcr.io/sts076/age2age:latest
+       docker run ghcr.io/sts076/age2age:latest
+       docker push ghcr.io/sts076/age2age:latest
 'on': [ push ]
