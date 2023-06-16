@@ -1,4 +1,8 @@
-const config = require('../config/db.config.json');
+var { secret } = "secret";
+try{
+    var { secret } = require('../config/db.config.json') 
+}catch(e){
+}
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../db');
@@ -34,7 +38,7 @@ async function authenticate({ user_email_address, user_password }) {
         throw 'user_password or user_password is incorrect';
 
     // authentication successful
-    const token = jwt.sign({ sub: user.user_id }, config.secret, { expiresIn: '7d' });
+    const token = jwt.sign({ sub: user.user_id }, secret, { expiresIn: '7d' });
     return { ...omitHash(user.get()), token };
 }
 
