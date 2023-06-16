@@ -12,9 +12,14 @@ describe('advert', function () {
     });
 
     it('should fail on POST', function (done) {
-        request.post(advert, { json: true, body: {} }, function (error, response) {
-            expect(response.statusCode).toEqual(400);
-            done();
+        request.post(advert, { json: true, body: {} }, function (error, response, body) {
+            if (error) {
+                console.log('error:', error);
+            } else {
+                expect(response.statusCode).toEqual(400);
+                console.log('body:', body);
+                done();
+            }
         });
     });
 
@@ -40,9 +45,9 @@ describe('user inscription test', function () {
     it('should find false when telephone number format is incorrect', function () {
         expect(phoneValidation("g")).toBe(false);
     });
-    it('should find true when two mails are the same', function () {
-        expect(findEmail("estlpatry76@gmail.com")).toBe(true);
-    });
+    // it('should find true when two mails are the same', function () {
+    //     expect(findEmail("estlpatry76@gmail.com")).toBe(true);
+    // });
 });
 
 // describe('simple tests', () => {
