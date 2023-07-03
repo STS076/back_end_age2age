@@ -1,3 +1,4 @@
+'on': [ push ]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,7 +55,6 @@ jobs:
        
       
 
-'on': [ push ]
 
 
   # deploy-production:
