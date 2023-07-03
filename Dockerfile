@@ -10,17 +10,17 @@ RUN apt-get update -yq \
 
 ADD . /app/
 
-# COPY . /app
+COPY . /app
 
-# RUN cd /app
+RUN cd /app
 
-# WORKDIR /app
+WORKDIR /app
 
-# RUN echo ls -al
-# RUN npm install
-# RUN npm install express
-# RUN npm run build
+RUN echo ls -al
+RUN npm install
+RUN npm install express
+RUN npm run build
 
 EXPOSE 3000
 
-# CMD npm run start
+CMD npm run start
