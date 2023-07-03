@@ -110,14 +110,4 @@ jobs:
   #           git pull
   #           npm install
   #           npm run build
-  #           npm run 
-  #     - name: Check if the server is up
-  #       run: |
-  #         sleep 10  # Attendre quelques secondes pour que le serveur ait le temps de démarrer
-  #         status_code=$(curl --write-out %{http_code} --silent --output /dev/null https://nekshor.fr)
-  #         if [[ $status_code -eq 200 ]]; then
-  #           echo "Le serveur est en ligne."
-  #         else
-  #           echo "Échec de la vérification du serveur."
-  #           exit 1
-  #         fi     
+  #           npm run   

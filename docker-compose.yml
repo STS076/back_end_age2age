@@ -1,14 +1,17 @@
+version: "3.3"
 services:
   age:
+    container_name: age
+    build: ./dockerfile
     build: .
     ports:
       - 3000:3000
-
     depends_on: 
       db:
         condition: service_healthy
-  db :
+  db:
     image : mysql
+    container_name: db
     restart: always
     healthcheck:
       test: "/usr/bin/mysql --user=sophie --password=sophie --execute \"SHOW DATABASES;\""
