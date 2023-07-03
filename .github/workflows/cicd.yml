@@ -13,7 +13,7 @@ jobs:
     needs: [build]
     # if: github.ref_name == 'main'
     environment:
-      name: production
+      # name: production
       url: http://nekshor.fr
     permissions:
       contents: read
