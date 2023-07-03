@@ -17,8 +17,8 @@ RUN cd /app
 WORKDIR /app
 
 RUN echo ls -al
-
 RUN npm install
+RUN npm install express
 RUN npm run build
 
 EXPOSE 3000
