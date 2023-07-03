@@ -36,7 +36,7 @@ jobs:
   #         push: true
   #         tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
   deploy:
-    needs: [build]
+    # needs: [build]
     runs-on: ubuntu-latest
     environment:
       name: development
@@ -47,7 +47,7 @@ jobs:
       - name: Log in to the server
         uses: appleboy/ssh-action@master
         with:
-          host: https://nekshor.fr
+          host: nekshor.fr
           username: grant
           password: NekShor27
           port: 22
