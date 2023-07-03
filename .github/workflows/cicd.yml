@@ -52,10 +52,11 @@ jobs:
           password: NekShor27
           port: 22
           script: |
-            cd /home/web/cicd/project
+            cd /home/web/cicd/project/back_end_age2age
             git pull
             npm install
-            npm run build 
+            npm run build
+            npm run start 
       
 
 'on': [ push ]
