@@ -54,10 +54,10 @@ jobs:
           port: 22
 
       - name: Deploy to the server
-        run: cd /home/web/cicd/project
-        run: git pull
-        run: npm install
-        run: npm run build
+        - run: cd /home/web/cicd/project
+        - run: git pull
+        - run: npm install
+        - run: npm run build
 
 'on': [ push ]
 
