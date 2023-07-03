@@ -10,10 +10,10 @@ jobs:
           npm run build
   build-and-push-image:
     runs-on: ubuntu-latest
-    needs: [build]
+    # needs: [build]
     # if: github.ref_name == 'main'
     environment:
-      # name: production
+      name: testing
       url: http://nekshor.fr
     permissions:
       contents: read
