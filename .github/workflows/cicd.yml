@@ -56,7 +56,7 @@ jobs:
             git pull
             npm install
             npm run build
-            timeout 300 npm run start
+            pm2 restart back_end_age2age
       - name: Check if the server is up
         run: |
           sleep 10  # Attendre quelques secondes pour que le serveur ait le temps de démarrer
