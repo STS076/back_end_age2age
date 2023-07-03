@@ -8,33 +8,57 @@ jobs:
         run: |
           npm install
           npm run build
-  build-and-push-image:
+  # build-and-push-image:
+  #   runs-on: ubuntu-latest
+  #   # needs: [build]
+  #   # if: github.ref_name == 'main'
+  #   environment:
+  #     name: testing
+  #     url: https://nekshor.fr
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+
+  #     - name: Log in to the Container registry
+  #       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
+
+  #     - name: Build and push Docker image
+  #       uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+  #       with:
+  #         context: .
+  #         push: true
+  #         tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
+  deploy:
+    needs: [build]
     runs-on: ubuntu-latest
-    # needs: [build]
-    # if: github.ref_name == 'main'
     environment:
-      name: testing
-      url: http://nekshor.fr
-    permissions:
-      contents: read
-      packages: write
+      name: production
+      url: https://nekshor.fr
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+      - name: Log in to the server
+        uses: appleboy/ssh-action@master
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          host: https://nekshor.fr
+          username: grant
+          password: NekShor27
+          port: 22
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
+      - name: Deploy to the server
+        run: cd /home/web/cicd/project
+        run: git pull
+        run: npm install
+        run: npm run build
+
 'on': [ push ]
 
 
