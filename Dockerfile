@@ -10,6 +10,10 @@ RUN apt-get update -yq \
 
 # ADD . /app/
 
+COPY . /app
+
+RUN cd /app
+
 WORKDIR /app
 
 RUN echo ls -al
