@@ -8,9 +8,11 @@ RUN apt-get update -yq \
 && apt-get install nodejs -yq \
 && apt-get clean -y
 
-ADD . /app/
+# ADD . /app/
 
 WORKDIR /app
+
+RUN echo ls -al
 
 RUN npm install
 RUN npm run build
