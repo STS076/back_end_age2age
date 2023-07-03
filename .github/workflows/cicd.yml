@@ -36,22 +36,22 @@ jobs:
           push: true
           tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
   deploy:
-  runs-on: ubuntu-latest
-  needs: [build-and-push-image]
-  steps:
-    - name: Configure SSH
-      uses: appleboy/ssh-action@master
-      with:
-        host: nekshor.fr
-        username: grant
-        password: NekShor27
-    - name: Deploy Docker image
-      run: |
-        sshpass -e ssh -o StrictHostKeyChecking=no grant@nekshor.fr "\
-        sudo docker pull ghcr.io/sts076/back_end_age2age:${{ github.ref_name }} && \
-        sudo docker stop back_end_age2age && \
-        sudo docker rm back_end_age2age && \
-        sudo docker run -d -p 3000:3000 --name back_end_age2age ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}"
+    runs-on: ubuntu-latest
+    needs: [build-and-push-image]
+    steps:
+      - name: Configure SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: nekshor.fr
+          username: grant
+          password: NekShor27
+      - name: Deploy Docker image
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=no grant@nekshor.fr "\
+          sudo docker pull ghcr.io/sts076/back_end_age2age:${{ github.ref_name }} && \
+          sudo docker stop back_end_age2age && \
+          sudo docker rm back_end_age2age && \
+          sudo docker run -d -p 3000:3000 --name back_end_age2age ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}"
 
        
       
