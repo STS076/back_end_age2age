@@ -1,6 +1,6 @@
 FROM debian:10
 
-LABEL org.opencontainers.image.source https://github.com/sts076/back_end_age2age
+# LABEL org.opencontainers.image.source https://github.com/sts076/back_end_age2age
 
 RUN apt-get update -yq \
 && apt-get install curl gnupg -yq \
