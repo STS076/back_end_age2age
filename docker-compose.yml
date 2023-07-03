@@ -2,7 +2,7 @@ version: "3.3"
 services:
   age:
     container_name: age
-    build: ./dockerfile
+    build: .
     ports:
       - 3000:3000
     depends_on: 
