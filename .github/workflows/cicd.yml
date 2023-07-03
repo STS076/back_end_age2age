@@ -51,11 +51,17 @@ jobs:
           username: grant
           password: NekShor27
           port: 22
-      - name: Deploy to the server
-        - run: cd /home/web/cicd/project
-        - run: git pull
-        - run: npm install
-        - run: npm run build
+      - name: go to project folder
+        run: cd /home/web/cicd/project
+
+      - name: pull 
+        run: git pull
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
 
 'on': [ push ]
 
