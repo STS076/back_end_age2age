@@ -42,12 +42,12 @@ jobs:
     - name: Configure SSH
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
+        host: nekshor.fr
+        username: grant
+        password: NekShor27
     - name: Deploy Docker image
       run: |
-        sshpass -e ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
+        sshpass -e ssh -o StrictHostKeyChecking=no grant@nekshor.fr "\
         sudo docker pull ghcr.io/sts076/back_end_age2age:${{ github.ref_name }} && \
         sudo docker stop back_end_age2age && \
         sudo docker rm back_end_age2age && \
