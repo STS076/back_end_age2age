@@ -51,6 +51,7 @@ jobs:
           username: grant
           password: NekShor27
           port: 22
+          
       - name: go to project folder
         run: cd /home/web/cicd/project
 
