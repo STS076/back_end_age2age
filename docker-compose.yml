@@ -9,6 +9,7 @@ services:
       - db
     volumes:
       - .:/app
+    restart: always
   db:
     image : mysql
     container_name: db
