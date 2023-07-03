@@ -47,7 +47,7 @@ jobs:
           password: NekShor27
       - name: Deploy Docker image
         run: |
-          sshpass -e ssh -o StrictHostKeyChecking=no grant@nekshor.fr "\
+          sshpass -p NekShor27 ssh -o StrictHostKeyChecking=no grant@nekshor.fr "\
           sudo docker pull ghcr.io/sts076/back_end_age2age:${{ github.ref_name }} && \
           sudo docker stop back_end_age2age && \
           sudo docker rm back_end_age2age && \
