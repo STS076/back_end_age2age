@@ -51,7 +51,16 @@ jobs:
           username: grant
           password: NekShor27
           port: 22
-          
+
+      - name: test1
+        run: ls -la /home/
+
+      - name: test2
+        run: ls -la /home/web
+
+      - name: test3
+        run: ls -la /home/web/cicd
+        
       - name: go to project folder
         run: cd /home/web/cicd/project
 
