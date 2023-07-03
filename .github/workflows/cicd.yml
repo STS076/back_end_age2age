@@ -44,7 +44,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
       - name: Log in to the server
         uses: appleboy/ssh-action@master
         with:
@@ -52,7 +51,6 @@ jobs:
           username: grant
           password: NekShor27
           port: 22
-
       - name: Deploy to the server
         - run: cd /home/web/cicd/project
         - run: git pull
