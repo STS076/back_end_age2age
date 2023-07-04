@@ -1,26 +1,28 @@
 FROM debian:10
 
-# LABEL org.opencontainers.image.source https://github.com/sts076/back_end_age2age
+# Mise à jour de la liste des paquets
+RUN apt-get update -yq
 
-# RUN apt-get update -yq \
-# && apt-get install curl gnupg -yq \
-# && curl -sL https://deb.nodesource.com/setup_18.x | bash \
-# && apt-get install nodejs -yq \
-# && apt-get clean -y
+# Installation de curl, gnupg et Node.js
+RUN apt-get install -yq curl gnupg
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -yq nodejs
 
-# ADD . /app/
+# Installation de PM2
+RUN npm install pm2 -g
 
-# COPY . /app
+# Définition du répertoire de travail et copie des fichiers
+WORKDIR /app
+COPY . /app
 
-# RUN cd /app
+# Installation des dépendances et construction du projet
+RUN npm install
+RUN npm install express
+RUN npm install typescript
+RUN npm run build
 
-# WORKDIR /app
-
-# RUN echo ls -al
-# RUN npm install
-# RUN npm install express
-# RUN npm run build
-
+# Exposition du port
 EXPOSE 3000
 
-# CMD npm run start
+# Commande de démarrage du service
+CMD ["npm", "run", "start"]
