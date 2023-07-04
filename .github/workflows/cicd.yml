@@ -44,7 +44,7 @@ jobs:
       with:
         host: nekshor.fr
         username: grant
-        password: ${{ secrets.SSH_PASSWORD }} # Utilisation des secrets GitHub pour masquer le mot de passe
+        password: NekShor27 # Utilisation des secrets GitHub pour masquer le mot de passe
         port: 22
 
     - name: go to folder
