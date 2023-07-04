@@ -36,31 +36,29 @@ jobs:
           push: true
           tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
   deploy-docker:
-    runs-on: ubuntu-latest
-    needs: [build-and-push-image]
-    steps:
-      - name: Connect via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: nekshor.fr
-          username: grant
-          password: NekShor27
-          port: 22
+  runs-on: ubuntu-latest
+  needs: [build-and-push-image]
+  steps:
+    - name: Connect via SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: nekshor.fr
+        username: grant
+        password: ${{ secrets.SSH_PASSWORD }} # Utilisation des secrets GitHub pour masquer le mot de passe
+        port: 22
 
-      - name: go to folder
-        run: |
-          cd /home/web/cicd/project/back_end_age2age
-          ls # Vous pouvez ajouter cette commande pour vérifier si vous êtes dans le bon répertoire
+    - name: go to folder
+      run: |
+        ssh grant@nekshor.fr "cd /home/web/cicd/project/back_end_age2age && ls" # Exécuter la commande "cd" et "ls" sur le serveur distant
 
-      - name: pull
-        run: |
-          cd /home/web/cicd/project/back_end_age2age
-          git pull origin test-serveur
+    - name: pull
+      run: |
+        ssh grant@nekshor.fr "cd /home/web/cicd/project/back_end_age2age && git pull origin test-serveur" # Exécuter la commande "git pull" sur le serveur distant
 
-      - name: start container
-        run: |
-          cd /home/web/cicd/project/back_end_age2age
-          docker-compose up -d
+    - name: start container
+      run: |
+        ssh grant@nekshor.fr "cd /home/web/cicd/project/back_end_age2age && docker-compose up -d" # Exécuter la commande "docker-compose up" sur le serveur distant
+
 
 
 
