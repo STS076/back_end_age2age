@@ -40,21 +40,27 @@ jobs:
     needs: [build-and-push-image]
     steps:
       - name: Connect via SSH
-          uses: appleboy/ssh-action@master
-          with:
-            host: nekshor.fr
-            username: grant
-            password: NekShor27
-            port: 22
+        uses: appleboy/ssh-action@master
+        with:
+          host: nekshor.fr
+          username: grant
+          password: NekShor27
+          port: 22
 
       - name: go to folder
-        run: cd /home/web/cicd/project/back_end_age2age
+        run: |
+          cd /home/web/cicd/project/back_end_age2age
+          ls # Vous pouvez ajouter cette commande pour vérifier si vous êtes dans le bon répertoire
 
       - name: pull
-        run: git pull origin test-serveur
+        run: |
+          cd /home/web/cicd/project/back_end_age2age
+          git pull origin test-serveur
 
-      - name: start conteiner
-        run: docker-compose up -d
+      - name: start container
+        run: |
+          cd /home/web/cicd/project/back_end_age2age
+          docker-compose up -d
 
 
 
