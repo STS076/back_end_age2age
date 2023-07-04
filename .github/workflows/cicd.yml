@@ -40,12 +40,12 @@ jobs:
     needs: [build-and-push-image]
     steps:
       - name: Connect via SSH
-            uses: appleboy/ssh-action@master
-            with:
-              host: nekshor.fr
-              username: grant
-              password: NekShor27
-              port: 22
+          uses: appleboy/ssh-action@master
+          with:
+            host: nekshor.fr
+            username: grant
+            password: NekShor27
+            port: 22
 
       - name: go to folder
         run: cd /home/web/cicd/project/back_end_age2age
