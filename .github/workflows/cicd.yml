@@ -35,22 +35,22 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
-  # deploy-docker:
-  #   runs-on: ubuntu-latest
-  #   needs: [build-and-push-image]
-  #   steps:
-  #     - uses: webfactory/ssh-agent@v0.8.0
-  #       with:
-  #         ssh-private-key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDImBZcMGLy5WN3/l8q6Z3ELOAh7Hek+AJm84UQKWiMk8cu/CYySDLOZc2rTyW0TK+joyuV0RAetFl7+nXujjLneh5bu//PPWkheXDojnk8RkKkNtNNlSY8TFis2YkMasMoQ+ubYpYfnBtjLRmep+RoUkXDe5dEZ7w54vhfoZfQL6AJZcKJCOx6bJ52ejUYGiIPIcFm8KXPYKd7XNxRUVeyUfq5mpEPwdv8DvJgGwOGTeeO/sf3uc0GrrRjjEdHpy+IA52UhRy6JswECWgSwq+hMUtGUjJtFTyGLGT42sc+VjYMKZTBAxnzyNygdvyoV7NFPJa6VCXx7mi38H8GhreilIetiSIoswTtkplRcCbLgi/Djz5mtr22aJcKKLqZF8089j5TAv33i/mCSYWxSYQlq334JDmV0Cv7T3hrpNxIdMJzC5EVS2Rzp3+6f5b8VJjFMcYWExDH9cYwJ4hH0DyYlPkVvkWn4MGxfCXleeHffo7hHbZiTdinb1xPqb9DmHM= root@vps3
-  #     - run: |
-  #         ssh -o StrictHostKeyChecking=no root@nekshor.fr "\
-  #         sudo docker pull ghcr.io/alexispe/cesi-next-cicd:latest && \
-  #         sudo docker stop next && \
-  #         sudo docker rm next && \
-  #         sudo docker run -d -p 3000:3000 --name next ghcr.io/alexispe/cesi-next-cicd:latest"
-  #     - run: |
-  #         ssh -o StrictHostKeyChecking=no root@nekshor.fr "\
-  #         sudo docker compose -f docker-compose.prod.yml up -d --pull always"
+  deploy-docker:
+    runs-on: ubuntu-latest
+    needs: [build-and-push-image]
+    steps:
+      - uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDImBZcMGLy5WN3/l8q6Z3ELOAh7Hek+AJm84UQKWiMk8cu/CYySDLOZc2rTyW0TK+joyuV0RAetFl7+nXujjLneh5bu//PPWkheXDojnk8RkKkNtNNlSY8TFis2YkMasMoQ+ubYpYfnBtjLRmep+RoUkXDe5dEZ7w54vhfoZfQL6AJZcKJCOx6bJ52ejUYGiIPIcFm8KXPYKd7XNxRUVeyUfq5mpEPwdv8DvJgGwOGTeeO/sf3uc0GrrRjjEdHpy+IA52UhRy6JswECWgSwq+hMUtGUjJtFTyGLGT42sc+VjYMKZTBAxnzyNygdvyoV7NFPJa6VCXx7mi38H8GhreilIetiSIoswTtkplRcCbLgi/Djz5mtr22aJcKKLqZF8089j5TAv33i/mCSYWxSYQlq334JDmV0Cv7T3hrpNxIdMJzC5EVS2Rzp3+6f5b8VJjFMcYWExDH9cYwJ4hH0DyYlPkVvkWn4MGxfCXleeHffo7hHbZiTdinb1xPqb9DmHM= root@vps3
+      - run: |
+          ssh -o StrictHostKeyChecking=no root@nekshor.fr "\
+          sudo docker pull ghcr.io/alexispe/cesi-next-cicd:latest && \
+          sudo docker stop next && \
+          sudo docker rm next && \
+          sudo docker run -d -p 3000:3000 --name next ghcr.io/alexispe/cesi-next-cicd:latest"
+      - run: |
+          ssh -o StrictHostKeyChecking=no root@nekshor.fr "\
+          sudo docker compose -f docker-compose.prod.yml up -d --pull always"
 
        
       
