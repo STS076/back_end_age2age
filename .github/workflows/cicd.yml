@@ -49,16 +49,15 @@ jobs:
 
       - name: go to folder
         run: |
-          ssh grant@nekshor.fr "cd /home/web/cicd/project/back_end_age2age && ls" # Exécuter la commande "cd" et "ls" sur le serveur distant
+          cd /home/web/cicd/project/back_end_age2age && ls
 
       - name: pull
         run: |
-          ssh grant@nekshor.fr "cd /home/web/cicd/project/back_end_age2age && git pull origin test-serveur" # Exécuter la commande "git pull" sur le serveur distant
+          cd /home/web/cicd/project/back_end_age2age && git pull origin test-serveur
 
       - name: start container
         run: |
-          ssh grant@nekshor.fr "cd /home/web/cicd/project/back_end_age2age && docker-compose up -d" # Exécuter la commande "docker-compose up" sur le serveur distant
-
+          cd /home/web/cicd/project/back_end_age2age && docker-compose up -d
 
 
 
