@@ -35,29 +35,23 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
-  deploy-docker:
-    runs-on: ubuntu-latest
-    needs: [build-and-push-image]
-    steps:
-      - name: Connect via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: nekshor.fr
-          username: grant
-          password: NekShor27 # Utilisation des secrets GitHub pour masquer le mot de passe
-          port: 22
+   deploy-docker:
+   runs-on: ubuntu-latest
+   needs: [build-push-docker, test]
+   steps:
+     - uses: webfactory/ssh-agent@v0.8.0
+       with:
+         ssh-private-key: ${{ secrets.SSH_KEY_ANTOINE }}
+     - run: |
+         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER_ANTOINE }}@nekshor.fr "\
+         sudo docker pull ghcr.io/sts076/back_end_age2age:${{ github.ref_name }} && \
+         sudo docker stop next && \
+         sudo docker rm next && \
+         sudo docker run -d -p 3000:3000 --name next ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}"
+     - run: |
+         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER_ANTOINE }}@nekshor.fr "\
+         sudo docker compose -f docker-compose.prod.yml up -d --pull always"
 
-      - name: go to folder
-        run: |
-          cd /home/web/cicd/project/back_end_age2age && ls
-
-      - name: pull
-        run: |
-          cd /home/web/cicd/project/back_end_age2age && git pull origin test-serveur
-
-      - name: start container
-        run: |
-          cd /home/web/cicd/project/back_end_age2age && docker-compose up -d
 
 
 
