@@ -14,5 +14,7 @@ jobs:
    steps:
      - uses: actions/checkout@v3
      - run: |
+        npm i
+        npm i request
         npm run test
 'on': [ push ]
