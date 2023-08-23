@@ -116,7 +116,7 @@ describe('Test pour check les emails', function () {
         let description = "test2"
         var advertId = null;
         beforeAll(async () => {
-            await new Promise(resolve => setTimeout(() => resolve(), 3000));
+            await new Promise(resolve => setTimeout(() => resolve(), 4000));
     
             try{
                 await db.Advert.create({ 
