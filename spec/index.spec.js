@@ -1,21 +1,17 @@
 const request = require('request');
 const server = require('server');
 const User = require('../app/service/user.service');
+const Role = require('../app/service/role.service');
 const Sequelize = require('sequelize');
-var dbConfig = require("../app/config/db.config.json");
+const sqlite = require('sqlite3');
+const db = require('../app/db');
 
-const { host, port, user, password, database } = dbConfig.database;
+initialize();
 
-const sequelize = new Sequelize(database, user, password, {
-    dialect: 'mysql', define: {
-      timestamps: false,
-      createdAt: false,
-      updatedAt: false,
-      UserUserId: false,
-    },
-    port: port
-  });
-
+async function initialize() {
+    await new Promise(resolve => setTimeout(() => resolve(), 500));
+    await db.Roles.create({role_type: 'user'})
+}
 
 
 const { phoneValidation, emailValidation } = require('../app/service/user.service');
@@ -49,9 +45,10 @@ let pseudo = "totototo"
 
 describe('User Routes', () => {
     beforeAll(async () => {
-        await sequelize.sync({ force: true }); // Créer les tables dans la base de données de test
+        await new Promise(resolve => setTimeout(() => resolve(), 3000));
+
         try{
-            await User.create({ 
+            await db.User.create({ 
                 user_email_address: 'totototo@gmail.com',
                 user_phone_number: '0606060606',
                 user_pseudo: pseudo,
@@ -67,8 +64,8 @@ describe('User Routes', () => {
             }); // Insérer un utilisateur de test
 
         } catch(e){
+            console.log(e)
         }
-
 
     });
 
@@ -88,7 +85,6 @@ describe('User Routes', () => {
     });
 
     afterAll(async () => {
-        await sequelize.close(); // Fermer la connexion Sequelize à la fin des tests
     });
   
 });
