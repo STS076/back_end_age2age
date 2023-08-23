@@ -50,7 +50,7 @@ describe('Test pour check les emails', function () {
     var idUser = null;
     describe('Test Utilisateurs', () => {
         beforeAll(async () => {
-            await new Promise(resolve => setTimeout(() => resolve(), 3000));
+            await new Promise(resolve => setTimeout(() => resolve(), 2000));
     
             try{
                 await db.User.create({ 
@@ -96,7 +96,13 @@ describe('Test pour check les emails', function () {
             await new Promise(resolve => setTimeout(() => resolve(), 400));
 
             if(idUser == null){
-                idUser = 1;
+                var allUsers = await User.getAll();
+                allUsers = JSON.parse(JSON.stringify(allUsers));
+                for (var i = 0; i < allUsers.length; i++) {
+                    if(allUsers[i].user_id > idUser){
+                        idUser = allUsers[i].user_id;
+                    }
+                }
             }
             await User.updateUserRole(idUser, roleExpected);
             var user = await User.getById(idUser);
@@ -112,12 +118,30 @@ describe('Test pour check les emails', function () {
 
 
     describe('Test Annonces', () => {
+
         let title = "test"
         let description = "test2"
         var advertId = null;
         beforeAll(async () => {
-            await new Promise(resolve => setTimeout(() => resolve(), 4000));
+            await new Promise(resolve => setTimeout(() => resolve(), 2000));
     
+            try{
+                await db.User.create({ 
+                    user_email_address: 'totototo@gmail.com',
+                    user_phone_number: '0606060606',
+                    user_pseudo: pseudo,
+                    user_password: 'jksdrgjebzrb',
+                    user_firstname: 'toto',
+                    user_lastname: 'tota',
+                    user_address: '10 rue Francois Arago',
+                    user_zip_code: '93100',
+                    user_city: 'Montreuil',
+                    user_department: '93',
+                    role_id: 1,
+                    user_active: 1,
+                }); 
+            } catch(e){
+            }
             try{
                 await db.Advert.create({ 
                     advert_title: title,
@@ -156,7 +180,13 @@ describe('Test pour check les emails', function () {
             await new Promise(resolve => setTimeout(() => resolve(), 800));
 
             if(advertId == null){
-                advertId = 1;
+                var allAdvert = await Advert.findByTitle(title);
+                allAdvert = JSON.parse(JSON.stringify(allAdvert));
+                for (var i = 0; i < allAdvert.length; i++) {
+                    if(allAdvert[i].advert_id > advertId){
+                        advertId = allAdvert[i].advertId;
+                    }
+                }
             }
             var advertChange = await Advert.findByTitle(title);
             var idAdvert = advertChange[0].advert_id;
