@@ -1,10 +1,6 @@
-const request = require('request');
-const server = require('server');
 const User = require('../app/service/user.service');
 const Role = require('../app/service/role.service');
 const Advert = require('../app/service/advert.service');
-const Sequelize = require('sequelize');
-const sqlite = require('sqlite3');
 const db = require('../app/db');
 
 initialize();
@@ -26,11 +22,11 @@ const adverts = require('../app/model/Adverts');
 let phoneNumberIncorrect = "g"
 let phoneNumberCorrect = "0667495721"
 
-describe('check phone number test', function () {
-    it('should find true when telephone number format is correct', function () {
+describe('Test pour check les numéro de téléphones', function () {
+    it('Si le format est bon', function () {
         expect(phoneValidation(phoneNumberCorrect)).toBe(true);
     });
-    it('should find false when telephone number format is incorrect', function () {
+    it('Si le format n\est pas bon', function () {
         expect(phoneValidation(phoneNumberIncorrect)).toBe(false);
     });
 });
@@ -38,11 +34,11 @@ describe('check phone number test', function () {
 let emailCorrect = "toto@gmail.com"
 let emailIncorrect = "jksdrgjebzrb"
 
-describe('check email test', function () {
-    it('should find true when email format is correct', function () {
+describe('Test pour check les emails', function () {
+    it('Si le format est bon', function () {
         expect(emailValidation(emailCorrect)).toBe(true);
     });
-    it('should find false when email format is incorrect', function () {
+    it('Si le format n\'est pas bon', function () {
         expect(emailValidation(emailIncorrect)).toBe(false);
     });
 });
@@ -52,7 +48,7 @@ describe('check email test', function () {
     let pseudo = "totototo"
     let roleExpected = 2;
     var idUser = null;
-    describe('test Users', () => {
+    describe('Test Utilisateurs', () => {
         beforeAll(async () => {
             await new Promise(resolve => setTimeout(() => resolve(), 3000));
     
@@ -96,7 +92,7 @@ describe('check email test', function () {
             expect(find).toBe(true);
         });
 
-        it('Changer le role', async () => {
+        it('Changer le role de l\'utilisateur', async () => {
             await new Promise(resolve => setTimeout(() => resolve(), 400));
 
             if(idUser == null){
@@ -115,7 +111,7 @@ describe('check email test', function () {
     });
 
 
-    describe('test Adverts', () => {
+    describe('Test Annonces', () => {
         let title = "test"
         let description = "test2"
         var advertId = null;
@@ -156,7 +152,7 @@ describe('check email test', function () {
             expect(allAdvert.length > 0).toBe(true);
         });
 
-        it('modifier une annonce', async () => {
+        it('Modifier une annonce', async () => {
             await new Promise(resolve => setTimeout(() => resolve(), 800));
 
             if(advertId == null){
@@ -182,7 +178,7 @@ describe('check email test', function () {
 
 
 
-    describe('test roles', () => {
+    describe('Test Roles', () => {
         let title = "Jouets"
 
         beforeAll(async () => {
@@ -201,7 +197,7 @@ describe('check email test', function () {
         });
 
     
-        it('Créer une annonce', async () => {
+        it('Créer un role', async () => {
             await new Promise(resolve => setTimeout(() => resolve(), 400));
             
             var allRoles = await Role.findAll();
