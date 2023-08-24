@@ -315,4 +315,5 @@ async function getStats() {
 function omitHash(user) {
     const { hash, ...userWithoutHash } = user;
     return userWithoutHash;
+
 }

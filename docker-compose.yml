@@ -1,0 +1,23 @@
+services:
+  age:
+    build: .
+    ports:
+      - 3000:3000
+
+  db :
+    image : mysql
+    restart: always
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 30s
+      retries: 10
+    ports:
+      - "3307:3306" 
+    environment : 
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cube
+      MYSQL_PASSWORD: root
+    volumes : 
+      - ./docker/db/data:/var/lib/mysql

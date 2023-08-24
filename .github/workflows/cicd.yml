@@ -16,5 +16,5 @@ jobs:
      - run: |
         npm i
         npm i request
-        npm test
+        npm run test
 'on': [ push ]
