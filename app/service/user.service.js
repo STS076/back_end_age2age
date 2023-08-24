@@ -16,6 +16,7 @@ module.exports = {
     create,
     phoneValidation,
     findEmail,
+    emailValidation,
     getUserFavourite,
     getAverageRatingUser,
     getAdvertsSelectedByUser,
@@ -101,6 +102,13 @@ async function findEmail(email) {
     }
     return false
 }
+
+function emailValidation(email) {
+    const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (email.match(emailFormat)) { return true; }
+    return false;
+}
+
 async function create(params) {
     function emailValidation(email) {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -307,4 +315,5 @@ async function getStats() {
 function omitHash(user) {
     const { hash, ...userWithoutHash } = user;
     return userWithoutHash;
+
 }
