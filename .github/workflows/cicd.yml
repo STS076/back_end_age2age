@@ -10,11 +10,7 @@ jobs:
           npm run build
   build-and-push-image:
     runs-on: ubuntu-latest
-    # needs: [build]
     # if: github.ref_name == 'main'
-    environment:
-      name: testing
-      url: https://nekshor.fr
     permissions:
       contents: read
       packages: write
@@ -34,79 +30,23 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}
-  deploy-docker:
-    runs-on: ubuntu-latest
-    needs: [build-and-push-image]
-    steps:
-      - uses: webfactory/ssh-agent@v0.8.0
+          tags: ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
+      - name: SSH into the Deployement Server
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.SSH_KEY_ANTOINE }}
-      - run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER_ANTOINE }}@nekshor.fr "\
-          sudo docker pull ghcr.io/sts076/back_end_age2age:${{ github.ref_name }} && \
-          sudo docker stop next && \
-          sudo docker rm next && \
-          sudo docker run -d -p 3000:3000 --name next ghcr.io/sts076/back_end_age2age:${{ github.ref_name }}"
-      - run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER_ANTOINE }}@nekshor.fr "\
-          sudo docker compose -f docker-compose.prod.yml up -d --pull always"
+          host: ${{ secrets.HOST_ANTOINE }}
+          username: ${{ secrets.SSH_USER_ANTOINE }}
+          password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
+          script: |
+            cd /home/web/sophie
+            docker-compose down
+            docker-compose up -d
+
+      - name: Pull and Run Docker Container on Server
+        run: |
+          docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
+          docker stop my_container || true  # Arrêter le conteneur existant s'il existe
+          docker rm my_container || true    # Supprimer le conteneur existant s'il existe
+          docker run -d --name my_container -p 80:80 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
 
 
-
-
-
-  # deploy-production:
-  #   runs-on: ubuntu-latest
-  #   # needs: [test]
-  #   environment:
-  #     name: production
-  #     url: http://35.181.58.20:3000
-  #   # if: github.ref_name == 'main'
-  #   permissions:
-  #     contents: read
-  #     packages: write
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Login to GitHub Container Registry
-  #       uses: docker/login-action@v2
-  #       with:
-  #         registry: ghcr.io
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #     - name: Build and push
-  #       uses: docker/build-push-action@v4
-  #       with:
-  #         push: true
-  #         tags: ghcr.io/alexispe/cesi-next-cicd:latest
-
-
-
-
-
-
-
-
-
-  # deploy:
-  #   # needs: [build]
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: development
-  #     url: https://nekshor.fr
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-  #     - name: Log in to the server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: nekshor.fr
-  #         username: grant
-  #         password: NekShor27
-  #         port: 22
-  #         script: |
-  #           cd /home/web/cicd/project/back_end_age2age
-  #           git pull
-  #           npm install
-  #           npm run build
-  #           npm run   
