@@ -37,10 +37,6 @@ jobs:
           host: ${{ secrets.HOST_ANTOINE }}
           username: ${{ secrets.SSH_USER_ANTOINE }}
           password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
-          script: |
-            cd /home/web/sophie
-            docker-compose down
-            docker-compose up -d
 
       - name: Pull and Run Docker Container on Server
         run: |
