@@ -42,6 +42,8 @@ jobs:
             docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
             docker stop my_container || true  # Arrêter le conteneur existant s'il existe
             docker rm my_container || true    # Supprimer le conteneur existant s'il existe
+            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             docker run -d --name my_container -p 80:80 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
+
 
 
