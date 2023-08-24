@@ -8,6 +8,11 @@ jobs:
         run: |
           npm install
           npm run build
+          docker login ghcr.io -u sophieAccount -p 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
+		      docker build -t ghcr.io/sts076/nodejs-my-website:latest ./ 
+          docker push ghcr.io/sts076/nodejs-my-website:latest
+          docker compose up
+
   test:
    runs-on: ubuntu-latest
    needs: build
