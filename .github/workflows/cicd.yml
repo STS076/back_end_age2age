@@ -41,6 +41,8 @@ jobs:
             cd /home/web/age_age
             git pull origin ${{ github.ref_name }}
             npm install
+            docker stop age2age || true
+            docker rm age2age || true
             docker-compose up -d
 
           # docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
