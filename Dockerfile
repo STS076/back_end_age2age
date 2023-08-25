@@ -25,8 +25,9 @@ RUN mkdir -p /app/app/config && \
     touch /app/app/config/db.config.json && \
     echo '{"database": {  "host": "db",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
 
+
 # Exposition du port
 EXPOSE 3000
 
 # Commande de démarrage du service
-CMD ["npm", "run", "start"]
+# CMD ["npm", "run", "start"]
