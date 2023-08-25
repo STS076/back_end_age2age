@@ -38,6 +38,7 @@ jobs:
           username: ${{ secrets.SSH_USER_ANTOINE }}
           password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
           script: |
+            cd /home/web/test
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
             docker stop my_container || true  # Arrêter le conteneur existant s'il existe
