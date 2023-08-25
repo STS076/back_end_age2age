@@ -38,13 +38,16 @@ jobs:
           username: ${{ secrets.SSH_USER_ANTOINE }}
           password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
           script: |
-            cd /home/web/sophie
-            git pull origin main
-            docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
-            docker stop my_container || true  # Arrêter le conteneur existant s'il existe
-            docker rm my_container || true    # Supprimer le conteneur existant s'il existe
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-            docker run -d --name my_container -p 6000:80 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }} 
+            cd /home/web/age_age
+            git pull origin ${{ github.ref_name }}
+            npm install
+            docker-compose up -d
+
+          # docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
+          # docker stop my_container || true  # Arrêter le conteneur existant s'il existe
+          # docker rm my_container || true    # Supprimer le conteneur existant s'il existe
+          # docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+          # docker run -d --name my_container -p 6000:80 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }} 
 
 
 
