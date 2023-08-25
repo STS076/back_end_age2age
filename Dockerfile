@@ -30,4 +30,4 @@ RUN mkdir -p /app/app/config && \
 EXPOSE 3000
 
 # Commande de démarrage du service
-# CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start"]
