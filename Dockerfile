@@ -25,16 +25,7 @@ RUN npm run build
 RUN touch ./app/config/db.config.json
 # remplir le fichier
 
-RUN echo '{
-    "database": {
-      "host": "db",
-      "port": 3306,
-      "user": "sophie",
-      "password": "sophie",
-      "database": "CUBE"
-    },
-    "secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"
-  }' >> ./app/config/db.config.json
+RUN echo '{"database": {  "host": "db",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> ./app/config/db.config.json
 
 # Exposition du port
 EXPOSE 3000
