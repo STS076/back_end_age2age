@@ -21,6 +21,9 @@ RUN npm install express
 RUN npm install typescript
 RUN npm run build
 
+# créer le dossier config
+RUN mkdir ./app/config
+
 # creer un fichier
 RUN touch ./app/config/db.config.json
 # remplir le fichier
