@@ -1,4 +1,8 @@
-const config = require('../config/db.config.json');
+var { secret } = "secret";
+try{
+    var { secret } = require('../config/db.config.json') 
+}catch(e){
+}
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../db');
@@ -10,6 +14,9 @@ module.exports = {
     getAll,
     getById,
     create,
+    phoneValidation,
+    findEmail,
+    emailValidation,
     getUserFavourite,
     getAverageRatingUser,
     getAdvertsSelectedByUser,
@@ -32,7 +39,7 @@ async function authenticate({ user_email_address, user_password }) {
         throw 'user_password or user_password is incorrect';
 
     // authentication successful
-    const token = jwt.sign({ sub: user.user_id }, config.secret, { expiresIn: '7d' });
+    const token = jwt.sign({ sub: user.user_id }, secret, { expiresIn: '7d' });
     return { ...omitHash(user.get()), token };
 }
 
@@ -80,6 +87,28 @@ async function getAverageRatingUser(user_id) {
     return await getAverageRatingUser(user_id)
 }
 
+function phoneValidation(phone) {
+    const phoneNumber = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    if (phone.match(phoneNumber)) { return true; }
+    return false;
+}
+async function findEmail(email) {
+    while(db.User == null) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    if (await db.User.findOne({ where: { user_email_address: email } })) {
+        return true
+    }
+    return false
+}
+
+function emailValidation(email) {
+    const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (email.match(emailFormat)) { return true; }
+    return false;
+}
+
 async function create(params) {
     function emailValidation(email) {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -91,11 +120,7 @@ async function create(params) {
         if (name.match(validation)) { return true; }
         return false;
     }
-    function phoneValidation(phone) {
-        const phoneNumber = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-        if (phone.match(phoneNumber)) { return true; }
-        return false;
-    }
+
 
     if (emailValidation(params.user_email_address) == false) {
         throw 'this email address is invalid';
@@ -290,4 +315,5 @@ async function getStats() {
 function omitHash(user) {
     const { hash, ...userWithoutHash } = user;
     return userWithoutHash;
+
 }

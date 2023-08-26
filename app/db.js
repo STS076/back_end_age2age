@@ -1,30 +1,52 @@
 // const mysql = require("mysql");
-const dbConfig = require("./config/db.config.json");
 
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const { Sequelize } = require('sequelize');
-
+const sqlite = require('sqlite3');
 module.exports = db = {};
 
 initialize();
 
 async function initialize() {
-  // create db if it doesn't already exist
-  const { host, port, user, password, database } = dbConfig.database;
-  const connection = mysql.createConnection({ host, user, password, database });
-  connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
-  // connect to db
-  const sequelize = new Sequelize(database, user, password, {
-    dialect: 'mysql', define: {
-      timestamps: false,
-      createdAt: false,
-      updatedAt: false,
-      UserUserId: false,
-    },
-    port: port,
-    host : host
-  });
+  var dbConfig = null
+  try{
+    dbConfig = require("./config/db.config.json");
+  }catch(e){
+  }
+
+  var connection = null
+  var sequelize = null
+  if(dbConfig){
+    // create db if it doesn't already exist
+    const { host, port, user, password, database } = dbConfig.database;
+    connection = await mysql.createConnection({ host, port, user, password });
+    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+    sequelize = new Sequelize(database, user, password, {
+      dialect: 'mysql', define: {
+        timestamps: false,
+        createdAt: false,
+        updatedAt: false,
+        UserUserId: false,
+      },
+      port: port
+    });
+  }else{
+
+    // use sqlite
+    connection = new sqlite.Database('./db.sqlite');
+    
+
+    sequelize = new Sequelize({
+      dialect: 'sqlite',
+      storage: './db.sqlite',
+      define: {
+        timestamps: false,
+      },
+    });
+    
+    console.log("no db config")
+  }
 
   // init models and add them to the exported db object
   db.User = require('./model/Users')(sequelize);
