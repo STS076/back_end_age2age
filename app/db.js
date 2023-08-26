@@ -1,6 +1,6 @@
 // const mysql = require("mysql");
 
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const { Sequelize } = require('sequelize');
 const sqlite = require('sqlite3');
 module.exports = db = {};
