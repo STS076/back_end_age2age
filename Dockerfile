@@ -7,7 +7,7 @@ RUN apt-get update -yq
 RUN apt-get install -yq curl gnupg
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -yq nodejs
-RUN apt-get install -yq mysql-client
+RUN apt-get install mysql-client
 
 # Installation de PM2
 RUN npm install pm2 -g
