@@ -16,10 +16,16 @@ jobs:
         npm i
         npm i request
         npm run test
-  
+  workflow_dispatch:  
+    needs: [build, test]
+    inputs:
+      deploy:  
+        description: 'Déployer sur le serveur'
+        required: false  
+
   build-and-push-image:
     runs-on: ubuntu-latest
-    needs: [build, test]
+    needs: workflow_dispatch
     # if: github.ref_name == 'main'
     permissions:
       contents: read
@@ -48,13 +54,13 @@ jobs:
           username: ${{ secrets.SSH_USER_ANTOINE }}
           password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
           script: |
-            cd /home/web/test
+            cd /home/web/production
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
-            docker stop my_container || true  # Arrêter le conteneur existant s'il existe
-            docker rm my_container || true    # Supprimer le conteneur existant s'il existe
+            docker stop production || true  # Arrêter le conteneur existant s'il existe
+            docker rm production || true    # Supprimer le conteneur existant s'il existe
             docker-compose up -d
-          #docker run -d --name my_container -p 3000:3000 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }} 
+          #docker run -d --name production -p 3000:3000 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }} 
 
           # cd /home/web/age_age
             # git set-url origin https://github.com/sophieAccount/back_end_age2age.git
