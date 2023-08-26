@@ -17,7 +17,7 @@ jobs:
         npm i request
         npm run test
   workflow_dispatch:  
-    needs: [build, test]
+    # needs: [build, test]
     inputs:
       deploy:  
         description: 'Déployer sur le serveur'
