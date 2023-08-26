@@ -22,7 +22,6 @@ jobs:
       deploy:  
         description: 'Déployer sur le serveur'
         required: false  
-
   build-and-push-image:
     runs-on: ubuntu-latest
     needs: workflow_dispatch
