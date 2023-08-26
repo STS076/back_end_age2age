@@ -16,15 +16,9 @@ jobs:
         npm i
         npm i request
         npm run test
-  workflow_dispatch:  
-    # needs: [build, test]
-    inputs:
-      deploy:  
-        description: 'Déployer sur le serveur'
-        required: false  
   build-and-push-image:
     runs-on: ubuntu-latest
-    needs: workflow_dispatch
+    needs: [build, test]
     # if: github.ref_name == 'main'
     permissions:
       contents: read
@@ -46,6 +40,19 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
+      - name: Publier un commentaire
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Cliquez sur le lien pour continuer le flux de travail."
+            });
+            console.log(response);
+      - name: Pause (cliquez sur le bouton pour continuer)
       - name: SSH into the Deployement Server
         uses: appleboy/ssh-action@master
         with:
