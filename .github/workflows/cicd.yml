@@ -47,6 +47,7 @@ jobs:
           #docker run -d --name my_container -p 3000:3000 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }} 
 
           # cd /home/web/age_age
+            # git set-url origin https://github.com/sophieAccount/back_end_age2age.git
             # git pull origin ${{ github.ref_name }}
             # npm install
             # docker stop age2age || true
