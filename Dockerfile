@@ -7,7 +7,6 @@ RUN apt-get update -yq
 RUN apt-get install -yq curl gnupg
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -yq nodejs
-RUN apt-get install -yq mysql-client
 
 # Installation de PM2
 RUN npm install pm2 -g
@@ -24,7 +23,7 @@ RUN npm run build
 
 RUN mkdir -p /app/app/config && \
     touch /app/app/config/db.config.json && \
-    echo '{"database": {  "host": "db",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
+    echo '{"database": {  "host": "db_recette",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
 
 
 # Exposition du port
