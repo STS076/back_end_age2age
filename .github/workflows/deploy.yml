@@ -1,11 +1,10 @@
-# on: 
-#   workflow_dispatch:
-#     inputs:
-#       ref_name:
-#         description: 'The name of the branch to deploy'
-#         required: true
-#         default: 'production' 
-'on': [ push ]
+on: 
+  workflow_dispatch:
+    inputs:
+      ref_name:
+        description: 'The name of the branch to deploy'
+        required: true
+        default: 'production' 
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
