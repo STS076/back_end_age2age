@@ -23,7 +23,7 @@ RUN npm run build
 
 RUN mkdir -p /app/app/config && \
     touch /app/app/config/db.config.json && \
-    echo '{"database": {  "host": "production_db",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
+    echo '{"database": {  "host": "production_db",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE_PRODUCTION"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
 
 
 # Exposition du port
