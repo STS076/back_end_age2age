@@ -27,7 +27,9 @@ async function initialize() {
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
     sequelize = new Sequelize(database, user, password, {
-      dialect: 'mysql', define: {
+      dialect: 'mysql',
+      host: host,
+      define: {
         timestamps: false,
         createdAt: false,
         updatedAt: false,
