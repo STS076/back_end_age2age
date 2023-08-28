@@ -28,7 +28,7 @@ router.delete('/:advert_id', authorize(), _delete);
 module.exports = router;
 
 function testFunction(req, res, next) {
-    res.json({ message: 'Ok' })
+    res.json({ message: 'Ok 2' })
 
 }
 
