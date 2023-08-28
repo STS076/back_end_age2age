@@ -2,8 +2,14 @@
 
 db.config.js
 
+docker/db/data/mysql.sock
+/docker
 /node_modules
 /app/config
+docker-compose.yml
+Dockerfile
+
+/.github
 
 logs
 *.log

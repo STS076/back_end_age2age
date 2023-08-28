@@ -13,6 +13,7 @@ const htmlspecialchars = require('htmlspecialchars');
 
 router.post('/', registerSchema, create);
 router.get('/', findAllJoinUser);
+router.get('/testFunction', testFunction);
 router.get('/:advert_id', findOne);
 router.get('/advert/validate', getAdvertToValidate)
 router.get('/advert/geo/:advert_longitude/:advert_latitude', getGeo);
@@ -24,6 +25,11 @@ router.put('/:advert_id', authorize(), updateSchema, update);
 router.delete('/:advert_id', authorize(), _delete);
 
 module.exports = router;
+
+function testFunction(req, res, next) {
+    res.json({ message: 'Ok' })
+
+}
 
 function registerSchema(req, res, next) {
     const schema = Joi.object({

@@ -5,12 +5,12 @@ RUN apt-get update -yq
 
 # Installation de curl, gnupg et Node.js
 RUN apt-get install -yq curl gnupg
+RUN apt-get install nano
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -yq nodejs
 
 # Installation de PM2
 RUN npm install pm2 -g
-
 # Définition du répertoire de travail et copie des fichiers
 WORKDIR /app
 COPY . /app
