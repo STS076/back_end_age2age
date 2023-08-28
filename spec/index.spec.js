@@ -15,7 +15,7 @@ async function initialize() {
     await db.Categories.create({category_type: 'Immobilier'})
     await db.Categories.create({category_type: 'Multimédia'})
 }
-
+ 
 
 const { phoneValidation, emailValidation } = require('../app/service/user.service');
 const adverts = require('../app/model/Adverts');
