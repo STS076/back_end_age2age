@@ -20,12 +20,12 @@ async function initialize() {
   if(dbConfig){
     // create db if it doesn't already exist
     await setTimeout(() => {}, 50000);
-    console.log(dbConfig)
+
     const { host, port, user, password, database } = dbConfig.database;
     connection = await mysql.createConnection({ host, port, user, password });
-    console.log(connection, "connection")
+
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
-    console.log("db created")
+
     sequelize = new Sequelize(database, user, password, {
       dialect: 'mysql', define: {
         timestamps: false,
@@ -35,7 +35,7 @@ async function initialize() {
       },
       port: port
     });
-    console.log("db connected")
+
   }else{
 
     // use sqlite
@@ -53,6 +53,7 @@ async function initialize() {
     console.log("no db config")
   }
 
+  console.log(sequelize, '1')
   // init models and add them to the exported db object
   db.User = require('./model/Users')(sequelize);
   db.Advert = require('./model/Adverts')(sequelize);
@@ -61,9 +62,11 @@ async function initialize() {
   db.Comments = require('./model/Comments')(sequelize);
   db.Messages = require('./model/Messages')(sequelize);
   db.User_has_favourite = require('./model/UserHasFavourite')(sequelize);
-
-
-
+  
+  console.log(sequelize, '2')
+  
+  
   // sync all models with database
   await sequelize.sync();
+  console.log(sequelize, '3')
 }
