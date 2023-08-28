@@ -53,7 +53,6 @@ async function initialize() {
     console.log("no db config")
   }
 
-  console.log(sequelize, '1')
   // init models and add them to the exported db object
   db.User = require('./model/Users')(sequelize);
   db.Advert = require('./model/Adverts')(sequelize);
