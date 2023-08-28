@@ -19,8 +19,6 @@ async function initialize() {
   var sequelize = null
   if(dbConfig){
     // create db if it doesn't already exist
-    await setTimeout(() => {}, 50000);
-
     const { host, port, user, password, database } = dbConfig.database;
     connection = await mysql.createConnection({ host, port, user, password });
 
