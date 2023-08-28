@@ -9,6 +9,7 @@ docker/db/data/mysql.sock
 docker-compose.yml
 Dockerfile
 
+.github
 /.github
 
 logs
