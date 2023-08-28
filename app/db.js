@@ -63,11 +63,8 @@ async function initialize() {
   db.Comments = require('./model/Comments')(sequelize);
   db.Messages = require('./model/Messages')(sequelize);
   db.User_has_favourite = require('./model/UserHasFavourite')(sequelize);
-  
-  console.log(sequelize, '2')
-  
+    
   
   // sync all models with database
   await sequelize.sync();
-  console.log(sequelize, '3')
 }
