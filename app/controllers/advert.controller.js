@@ -8,11 +8,13 @@ const authorize = require('../../_middleware/authorize')
 const users = require('../model/Users');
 const adverts = require('../model/Adverts');
 const htmlspecialchars = require('htmlspecialchars');
+const { test } = require('node:test');
 
 
 
 router.post('/', registerSchema, create);
 router.get('/', findAllJoinUser);
+router.get('/testFunction', testFunction);
 router.get('/:advert_id', findOne);
 router.get('/advert/validate', getAdvertToValidate)
 router.get('/advert/geo/:advert_longitude/:advert_latitude', getGeo);
@@ -24,6 +26,11 @@ router.put('/:advert_id', authorize(), updateSchema, update);
 router.delete('/:advert_id', authorize(), _delete);
 
 module.exports = router;
+
+function testFunction(req, res, next) {
+    res.json({ message: 'Ok' })
+
+}
 
 function registerSchema(req, res, next) {
     const schema = Joi.object({
