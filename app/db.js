@@ -19,11 +19,13 @@ async function initialize() {
   var sequelize = null
   if(dbConfig){
     // create db if it doesn't already exist
-    await setTimeout(() => {}, 20000);
+    await setTimeout(() => {}, 50000);
     console.log(dbConfig)
     const { host, port, user, password, database } = dbConfig.database;
     connection = await mysql.createConnection({ host, port, user, password });
+    console.log(connection, "connection")
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+    console.log("db created")
     sequelize = new Sequelize(database, user, password, {
       dialect: 'mysql', define: {
         timestamps: false,
@@ -33,6 +35,7 @@ async function initialize() {
       },
       port: port
     });
+    console.log("db connected")
   }else{
 
     // use sqlite
