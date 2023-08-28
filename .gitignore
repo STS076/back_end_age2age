@@ -3,7 +3,7 @@
 db.config.js
 
 docker/db/data/mysql.sock
-/docker
+docker/
 /node_modules
 /app/config
 docker-compose.yml
