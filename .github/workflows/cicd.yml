@@ -17,4 +17,4 @@ jobs:
         npm i
         npm i request
         npm run test
-'on': [ push ]
+'on': [ push ] 
