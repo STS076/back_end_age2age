@@ -22,14 +22,4 @@ jobs:
           npm install request
       - name: Run tests
         run: npm run test
-      - name: Log in to the Container registry
-        uses: docker/login-action@v1  # Utilisez la version v1 de l'action
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and deploy Docker image
-        run: |
-          docker build -t ghcr.io/sophieaccount/nodejs-my-website:latest ./
-          docker compose up
 'on': [ push ]
