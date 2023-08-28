@@ -9,6 +9,8 @@ docker/db/data/mysql.sock
 docker-compose.yml
 Dockerfile
 
+/.github
+
 logs
 *.log
 npm-debug.log*
