@@ -1,7 +1,4 @@
 ---
-on:
-  pull_request:
-    branches: [ recette ]
 jobs:
   build:
     runs-on: ubuntu-latest
