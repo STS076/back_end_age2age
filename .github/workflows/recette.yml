@@ -1,4 +1,7 @@
-'on': [ push ]
+on:
+  push:
+    branches:
+      - recette
 jobs:
   build:
     runs-on: ubuntu-latest
