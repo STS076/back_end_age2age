@@ -28,12 +28,12 @@ jobs:
    runs-on: ubuntu-latest
    needs: build
    steps:
-      - name: Checkout code
         uses: actions/checkout@v3
-      - name: Install dependencies
+      - name: Test
         run: |
           npm install
           npm install request
+          npm run test
           docker login ghcr.io -u sophieaccount -p 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
           docker build -t ghcr.io/sophieaccount/nodejs-my-website:latest ./
 'on': [ push ]
