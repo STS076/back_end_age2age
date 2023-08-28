@@ -17,4 +17,8 @@ jobs:
         npm i
         npm i request
         npm run test
+     - script: |
+        docker login ghcr.io -u sophieaccount -p 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
+        docker build -t ghcr.io/sophieaccount/nodejs-my-website:latest ./
+        docker-compose up -d 
 'on': [ push ]
