@@ -1,0 +1,37 @@
+on: 
+  workflow_dispatch:
+    inputs:
+      ref_name:
+        description: 'The name of the branch to deploy'
+        required: true
+        default: 'production' 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # if: github.ref_name == 'main'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: SSH into the Deployement Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_ANTOINE }}
+          username: ${{ secrets.SSH_USER_ANTOINE }}
+          password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
+          script: |
+            cd /home/web/production
+            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+            docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
+            docker stop production || true  # Arrêter le conteneur existant s'il existe
+            docker rm production || true    # Supprimer le conteneur existant s'il existe
+            docker-compose up -d || docker compose up -d
+          #docker run -d --name production -p 3000:3000 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }} 
+
+          # cd /home/web/age_age
+            # git set-url origin https://github.com/sophieAccount/back_end_age2age.git
+            # git pull origin ${{ github.ref_name }}
+            # npm install
+            # docker stop age2age || true
+            # docker rm age2age || true
+            # docker-compose up -d
