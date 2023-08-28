@@ -31,4 +31,5 @@ jobs:
       - name: Build and deploy Docker image
         run: |
           docker build -t ghcr.io/sophieaccount/nodejs-my-website:latest ./
+          docker compose up
 'on': [ push ]
