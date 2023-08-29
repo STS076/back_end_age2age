@@ -62,32 +62,38 @@ async function initialize() {
   db.Messages = require('./model/Messages')(sequelize);
   db.User_has_favourite = require('./model/UserHasFavourite')(sequelize);
   
-  // var roles = {
-  //   1: 'userr',
-  //   2: 'moderatorr',
-  // }
+  var r = {
+    1: 'modérateur',
+    2: 'admin',
+    3: 'super_admin',
+    4: 'test1',
+    5: 'test2',
+    6: 'user',
+  }
 
-  // for (var i in roles){
-  //   var role = await db.Roles.findOne(i)
-  //   if(!role){
-  //     await db.Roles.create({role_type: roles[i]});
-  //   }
-  // }
+  var roleService = require('./service/role.service');
+  var categoryService = require('./service/category.service');
+  for (var i in r){
+    var role = await roleService.findOne(i);
+    if(!role){
+      await db.Roles.create({role_type: r[i]});
+    }
+  }
 
-  // var categories = {
-  //   1: 'Electronics',
-  //   2: 'Clothes',
-  //   3: 'Furniture',
-  //   4: 'Books',
-  //   5: 'Other',
-  // }
+  var c = {
+    1: 'Electronics',
+    2: 'Clothes',
+    3: 'Furniture',
+    4: 'Books',
+    5: 'Other',
+  }
 
-  // for (var i in categories){
-  //   var category = await db.Categories.findOne(i)
-  //   if(!category){
-  //     await db.Categories.create({category_name: categories[i]});
-  //   }
-  // }
+  for (var i in c){
+    var category = await categoryService.findOne(i)
+    if(!category){
+      await db.Categories.create({category_name: c[i]});
+    }
+  }
   
   // sync all models with database
   await sequelize.sync();
