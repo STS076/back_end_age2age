@@ -75,11 +75,11 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 3000;
 
 // if file exist
-if(fs.existsSync('/etc/letsencrypt/live/cube.nekshor.fr/key.pem') && fs.existsSync('/etc/letsencrypt/live/cube.nekshor.fr/cert.pem')) {
+if(fs.existsSync('./certificate/key.pem') && fs.existsSync('./certificate/cert.pem')) {
   console.log('HTTPS server enabled');
   var options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/cube.nekshor.fr/key.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/cube.nekshor.fr/cert.pem')
+    key: fs.readFileSync('./certificate/key.pem'),
+    cert: fs.readFileSync('./certificate/cert.pem')
   };
   var server = https.createServer(options, app);
 }else{
