@@ -74,20 +74,20 @@ async function initialize() {
   //   }
   // }
 
-  var categories = {
-    1: 'Electronics',
-    2: 'Clothes',
-    3: 'Furniture',
-    4: 'Books',
-    5: 'Other',
-  }
+  // var categories = {
+  //   1: 'Electronics',
+  //   2: 'Clothes',
+  //   3: 'Furniture',
+  //   4: 'Books',
+  //   5: 'Other',
+  // }
 
-  for (var i in categories){
-    var category = await db.Categories.findOne(i)
-    if(!category){
-      await db.Categories.create({category_name: categories[i]});
-    }
-  }
+  // for (var i in categories){
+  //   var category = await db.Categories.findOne(i)
+  //   if(!category){
+  //     await db.Categories.create({category_name: categories[i]});
+  //   }
+  // }
   
   // sync all models with database
   await sequelize.sync();
