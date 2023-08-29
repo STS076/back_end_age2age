@@ -29,6 +29,7 @@ RUN mkdir -p /app/app/config && \
 RUN mkdir certificate
 RUN openssl req -x509 -newkey rsa:4096 -keyout certificate/key.pem -out certificate/cert.pem -days 365 -nodes -subj '/CN=localhost'
 
+
 # Exposition du port
 EXPOSE 3000
 
