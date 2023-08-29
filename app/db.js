@@ -62,17 +62,17 @@ async function initialize() {
   db.Messages = require('./model/Messages')(sequelize);
   db.User_has_favourite = require('./model/UserHasFavourite')(sequelize);
   
-  var roles = {
-    1: 'userr',
-    2: 'moderatorr',
-  }
+  // var roles = {
+  //   1: 'userr',
+  //   2: 'moderatorr',
+  // }
 
-  for (var i in roles){
-    var role = await db.Roles.findOne(i)
-    if(!role){
-      await db.Roles.create({role_type: roles[i]});
-    }
-  }
+  // for (var i in roles){
+  //   var role = await db.Roles.findOne(i)
+  //   if(!role){
+  //     await db.Roles.create({role_type: roles[i]});
+  //   }
+  // }
 
   var categories = {
     1: 'Electronics',
