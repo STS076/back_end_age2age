@@ -8,6 +8,7 @@ RUN apt-get install -yq curl gnupg
 RUN apt-get install nano
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -yq nodejs
+RUN apt-get install -yq openssl
 
 # Installation de PM2
 RUN npm install pm2 -g
@@ -23,8 +24,10 @@ RUN npm run build
 
 RUN mkdir -p /app/app/config && \
     touch /app/app/config/db.config.json && \
-    echo '{"database": {  "host": "production_db",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE_PRODUCTION"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
+    echo '{"database": {  "host": "db_recette",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
 
+RUN mkdir certificate
+RUN openssl req -x509 -newkey rsa:4096 -keyout certificate/key.pem -out certificate/cert.pem -days 365 -nodes -subj '/CN=localhost'
 
 # Exposition du port
 EXPOSE 3000
