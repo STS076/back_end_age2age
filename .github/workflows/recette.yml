@@ -43,19 +43,19 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
-  #     - name: SSH into the Deployement Server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.HOST_ANTOINE }}
-  #         username: ${{ secrets.SSH_USER_ANTOINE }}
-  #         password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
-  #         script: |
-  #           cd /home/web/production
-  #           docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-  #           docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
-  #           docker stop production || true  # Arrêter le conteneur existant s'il existe
-  #           docker rm production || true    # Supprimer le conteneur existant s'il existe
-  #           docker-compose up -d
+      - name: SSH into the Deployement Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_ANTOINE }}
+          username: ${{ secrets.SSH_USER_ANTOINE }}
+          password: ${{ secrets.SSH_PASSWORD_ANTOINE }}
+          script: |
+            cd /home/web/production
+            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+            docker pull ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }}
+            docker stop production || true  # Arrêter le conteneur existant s'il existe
+            docker rm production || true    # Supprimer le conteneur existant s'il existe
+            docker-compose up -d
   #         #docker run -d --name production -p 3000:3000 ghcr.io/sophieaccount/back_end_age2age:${{ github.ref_name }} 
 
   #         # cd /home/web/age_age
