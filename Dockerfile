@@ -28,7 +28,7 @@ RUN mkdir -p /app/app/config && \
 
 # RUN mkdir certificate
 # RUN openssl req -x509 -newkey rsa:4096 -keyout certificate/key.pem -out certificate/cert.pem -days 365 -nodes -subj '/CN=localhost'
-RUN certbot certonly --standalone --preferred-challenges http -d cube.nekshor.fr --agree-tos -n -m
+RUN certbot certonly --standalone --preferred-challenges http -d cube.nekshor.fr --agree-tos -n -m antoine27bigot@gmail.com
 
 # Exposition du port
 EXPOSE 3000
