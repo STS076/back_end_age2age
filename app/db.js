@@ -63,8 +63,8 @@ async function initialize() {
   db.User_has_favourite = require('./model/UserHasFavourite')(sequelize);
   
   var roles = {
-    1: 'user',
-    2: 'moderator',
+    1: 'userr',
+    2: 'moderatorr',
   }
 
   for (var i in roles){
