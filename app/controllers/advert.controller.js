@@ -8,7 +8,6 @@ const authorize = require('../../_middleware/authorize')
 const users = require('../model/Users');
 const adverts = require('../model/Adverts');
 const htmlspecialchars = require('htmlspecialchars');
-const { test } = require('node:test');
 
 
 
@@ -108,7 +107,6 @@ function getGeo(req, res, next) {
     advertService.getGeo(req.params.advert_latitude, req.params.advert_longitude)
         .then(adverts => res.json(adverts))
         .catch(next);
-    console.log(adverts)
 }
 
 function updateSchema(req, res, next) {
