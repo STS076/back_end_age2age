@@ -1,8 +1,10 @@
 const express = require("express");
+var https = require('https');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 require('rootpath')();
+var fs = require('fs');
 const errorHandler = require('_middleware/error-handler');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -71,6 +73,21 @@ app.use(errorHandler);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+// if file exist
+if(fs.existsSync('./certificate/key.pem') && fs.existsSync('./certificate/cert.pem')) {
+  console.log('HTTPS server enabled');
+  var options = {
+    key: fs.readFileSync('./certificate/key.pem'),
+    cert: fs.readFileSync('./certificate/cert.pem')
+  };
+  var server = https.createServer(options, app);
+}else{
+  console.log('HTTPS server disabled');
+  var server = app;
+}
+
+
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
