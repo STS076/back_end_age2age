@@ -36,4 +36,4 @@ jobs:
           npm install
           npm install eslint
       - name: Run eslint
-        run: npm run eslint
+        run: npm run lint
