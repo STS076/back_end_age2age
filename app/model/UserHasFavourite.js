@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 
 module.exports = user_has_favourite;
 
@@ -10,8 +10,8 @@ function user_has_favourite(sequelize) {
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "adverts",
-        key: "advert_id"
+        model: 'adverts',
+        key: 'advert_id'
       }
     },
     user_id: {
@@ -19,10 +19,10 @@ function user_has_favourite(sequelize) {
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "users",
-        key: "user_id"
+        model: 'users',
+        key: 'user_id'
       }
     },
   };
-  return sequelize.define("user_has_favourite", attributes);
+  return sequelize.define('user_has_favourite', attributes);
 };
