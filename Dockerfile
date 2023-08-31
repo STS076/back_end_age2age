@@ -22,10 +22,6 @@ RUN npm install express
 RUN npm install typescript
 RUN npm run build
 
-RUN mkdir -p /app/app/config && \
-    touch /app/app/config/db.config.json && \
-    echo '{"database": {  "host": "db_recette",  "port": 3306,  "user": "sophie",  "password": "sophie",  "database": "CUBE"},"secret": "25ad17cf-ebda-4147-9abe-b1b5148664f5"}' >> /app/app/config/db.config.json
-
 RUN mkdir certificate
 RUN openssl req -x509 -newkey rsa:4096 -keyout certificate/key.pem -out certificate/cert.pem -days 365 -nodes -subj '/CN=localhost'
 

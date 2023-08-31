@@ -53,8 +53,7 @@ async function initialize() {
     console.log("no db config")
   }
 
-  // init models and add them to the exported db object
-  db.User = require("./model/Users")(sequelize);
+  // init models and add them to the exported db object  db.User = require("./model/Users")(sequelize);
   db.Advert = require("./model/Adverts")(sequelize);
   db.Roles = require("./model/Roles")(sequelize);
   db.Categories = require("./model/Categories")(sequelize);
@@ -62,7 +61,44 @@ async function initialize() {
   db.Messages = require("./model/Messages")(sequelize);
   db.User_has_favourite = require("./model/UserHasFavourite")(sequelize);
     
+
   
   // sync all models with database
   await sequelize.sync();
+
+  var r = {
+    1: 'modérateur',
+    2: 'admin',
+    3: 'super_admin',
+    4: 'test1',
+    5: 'test2',
+    6: 'user',
+  }
+
+  var roleService = require('./service/role.service');
+  var categoryService = require('./service/category.service');
+  for (var i in r){
+    try{
+      var role = await roleService.findOne(i);
+
+    } catch(e){
+      await db.Roles.create({role_type: r[i]});
+    }
+  }
+
+  var c = {
+    1: 'Electronics',
+    2: 'Clothes',
+    3: 'Furniture',
+    4: 'Books',
+    5: 'Other',
+  }
+
+  for (var i in c){
+    try{
+      var category = await categoryService.findOne(i)
+    } catch(e){
+      await db.Categories.create({category_type: c[i]});
+    }
+  }
 }
