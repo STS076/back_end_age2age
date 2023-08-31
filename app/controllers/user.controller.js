@@ -1,30 +1,30 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Joi = require("joi");
-const validateRequest = require("../../_middleware/validate-request");
-const authorize = require("../../_middleware/authorize")
-const userService = require("../service/user.service");
+const Joi = require('joi');
+const validateRequest = require('../../_middleware/validate-request');
+const authorize = require('../../_middleware/authorize')
+const userService = require('../service/user.service');
 
 // routes
-router.post("/authenticate", authenticateSchema, authenticate);
-router.post("/register", registerSchema, register);
-router.get("/", authorize(), getAll);
-router.get("/:user_id", authorize(), getById);
-router.get("/favourite/:user_id", authorize(), getUserFavourite);
-router.get("/created/:user_id", authorize(), getAdvertCreatedByUser);
-router.get("/selected/:user_id", authorize(), getAdvertsSelectedByUser);
-router.get("/rating/:user_id", authorize(), getAverageRatingUser);
-router.get("/userFavourite/:user_id", authorize(), getUserFavouriteAdverts);
-router.get("/commentSend/:user_id", authorize(), getCommentUserSend);
-router.get("/commentReceived/:user_id", authorize(), getCommentUserReceived);
-router.get("/stats/getStats", getStats);
-router.get("/rate/getAllRating/", authorize(), getAllRating);
-router.put("/:user_id", authorize(), updateSchema, update);
-router.put("/role/:user_id", authorize(), updateUserRole);
-router.put("/status/:user_id", updateUserStatus);
+router.post('/authenticate', authenticateSchema, authenticate);
+router.post('/register', registerSchema, register);
+router.get('/', authorize(), getAll);
+router.get('/:user_id', authorize(), getById);
+router.get('/favourite/:user_id', authorize(), getUserFavourite);
+router.get('/created/:user_id', authorize(), getAdvertCreatedByUser);
+router.get('/selected/:user_id', authorize(), getAdvertsSelectedByUser);
+router.get('/rating/:user_id', authorize(), getAverageRatingUser);
+router.get('/userFavourite/:user_id', authorize(), getUserFavouriteAdverts);
+router.get('/commentSend/:user_id', authorize(), getCommentUserSend);
+router.get('/commentReceived/:user_id', authorize(), getCommentUserReceived);
+router.get('/stats/getStats', getStats);
+router.get('/rate/getAllRating/', authorize(), getAllRating);
+router.put('/:user_id', authorize(), updateSchema, update);
+router.put('/role/:user_id', authorize(), updateUserRole);
+router.put('/status/:user_id', updateUserStatus);
 
 
-router.delete("/:user_id", authorize(), _delete);
+router.delete('/:user_id', authorize(), _delete);
 
 module.exports = router;
 
@@ -66,7 +66,7 @@ function registerSchema(req, res, next) {
 
 function register(req, res, next) {
     userService.create(req.body)
-        .then(() => res.json({ message: "Registration successful" }))
+        .then(() => res.json({ message: 'Registration successful' }))
         .catch(next);
 }
 
@@ -144,20 +144,20 @@ function getAdvertCreatedByUser(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schema = Joi.object({
-        user_firstname: (Joi.string()).empty(""),
-        user_lastname: (Joi.string()).empty(""),
-        user_phone_number: (Joi.string()).empty(""),
-        user_email_address: (Joi.string()).empty(""),
-        user_active: (Joi.boolean()).empty(""),
-        user_password: (Joi.string()).empty(""),
-        user_pseudo: (Joi.string()).empty(""),
-        user_address: (Joi.string()).empty(""),
-        user_city: (Joi.string()).empty(""),
-        user_zip_code: (Joi.string()).empty(""),
-        user_department: (Joi.string()).empty(""),
+        user_firstname: (Joi.string()).empty(''),
+        user_lastname: (Joi.string()).empty(''),
+        user_phone_number: (Joi.string()).empty(''),
+        user_email_address: (Joi.string()).empty(''),
+        user_active: (Joi.boolean()).empty(''),
+        user_password: (Joi.string()).empty(''),
+        user_pseudo: (Joi.string()).empty(''),
+        user_address: (Joi.string()).empty(''),
+        user_city: (Joi.string()).empty(''),
+        user_zip_code: (Joi.string()).empty(''),
+        user_department: (Joi.string()).empty(''),
         user_longitude: (Joi.number()),
         user_latitude: (Joi.number()),
-        role_id: (Joi.number()).empty("")
+        role_id: (Joi.number()).empty('')
     });
     validateRequest(req, next, schema);
 }
@@ -170,6 +170,6 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
     userService.delete(req.params.user_id)
-        .then(() => res.json({ message: "User deleted successfully" }))
+        .then(() => res.json({ message: 'User deleted successfully' }))
         .catch(next);
 }

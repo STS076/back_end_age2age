@@ -1,13 +1,13 @@
-var { secret } = "secret";
+var { secret } = 'secret';
 try{
-    var { secret } = require("../config/db.config.json") 
+    var { secret } = require('../config/db.config.json') 
 }catch(e){
 }
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const db = require("../db");
-const htmlspecialchars = require("htmlspecialchars");
-const { QueryTypes } = require("sequelize");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const db = require('../db');
+const htmlspecialchars = require('htmlspecialchars');
+const { QueryTypes } = require('sequelize');
 
 module.exports = {
     authenticate,
@@ -33,13 +33,13 @@ module.exports = {
 };
 
 async function authenticate({ user_email_address, user_password }) {
-    const user = await db.User.scope("withHash").findOne({ where: { user_email_address } });
+    const user = await db.User.scope('withHash').findOne({ where: { user_email_address } });
 
     if (!user || !(await bcrypt.compare(user_password, user.user_password)))
-        {throw "user_password or user_password is incorrect";}
+        {throw 'user_password or user_password is incorrect';}
 
     // authentication successful
-    const token = jwt.sign({ sub: user.user_id }, secret, { expiresIn: "7d" });
+    const token = jwt.sign({ sub: user.user_id }, secret, { expiresIn: '7d' });
     return { ...omitHash(user.get()), token };
 }
 
@@ -123,21 +123,21 @@ async function create(params) {
 
 
     if (emailValidation(params.user_email_address) == false) {
-        throw "this email address is invalid";
+        throw 'this email address is invalid';
     }
 
     if (phoneValidation(params.user_phone_number) == false) {
-        throw "this phone number address is invalid";
+        throw 'this phone number address is invalid';
     }
 
     if (await db.User.findOne({ where: { user_pseudo: params.user_pseudo } })) {
-        throw "this username \"" + params.user_pseudo + "\" is already taken";
+        throw 'this username "' + params.user_pseudo + '" is already taken';
     }
     if (await db.User.findOne({ where: { user_email_address: params.user_email_address } })) {
-        throw "this email address \"" + params.user_email_address + "\" is already taken";
+        throw 'this email address "' + params.user_email_address + '" is already taken';
     }
     if (await db.User.findOne({ where: { user_phone_number: params.user_phone_number } })) {
-        throw "this phone number \"" + params.user_phone_number + "\" is already taken";
+        throw 'this phone number "' + params.user_phone_number + '" is already taken';
     }
 
     // hash user_password
@@ -166,25 +166,25 @@ async function update(user_id, params) {
 
     const user_pseudoChanged = params.user_pseudo && user.user_pseudo !== params.user_pseudo;
     if (user_pseudoChanged && await db.User.findOne({ where: { user_pseudo: params.user_pseudo } })) {
-        throw "this username \"" + params.user_pseudo + "\" is already taken";
+        throw 'this username "' + params.user_pseudo + '" is already taken';
     }
 
     const user_emailChanged = params.user_email_address && user.user_email_address !== params.user_email_address;
     if (user_emailChanged && await db.User.findOne({ where: { user_email_address: params.user_email_address } })) {
-        throw "this email address \"" + params.user_email_address + "\" is already taken";
+        throw 'this email address "' + params.user_email_address + '" is already taken';
     }
 
     const user_phoneChanged = params.user_phone_number && user.user_phone_number !== params.user_phone_number;
     if (user_phoneChanged && await db.User.findOne({ where: { user_phone_number: params.user_phone_number } })) {
-        throw "this phone number \"" + params.user_phone_number + "\" is already taken";
+        throw 'this phone number "' + params.user_phone_number + '" is already taken';
     }
 
     if (emailValidation(params.user_email_address) == false) {
-        throw "this email address is invalid";
+        throw 'this email address is invalid';
     }
 
     if (phoneValidation(params.user_phone_number) == false) {
-        throw "this phone number address is invalid";
+        throw 'this phone number address is invalid';
     }
 
     if (params.user_password) {
@@ -204,7 +204,7 @@ async function _delete(user_id) {
 // helper functions
 async function getUser(user_id) {
     const user = await db.User.findByPk(user_id);
-    if (!user) {throw "advert not found";}
+    if (!user) {throw 'advert not found';}
     return user;
 }
 
@@ -216,42 +216,42 @@ async function getUserFavourite(user_id) {
     inner join adverts on user_has_favourites.advert_id = adverts.advert_id
     where users.user_id = ${user_id}
     group by users.user_id `, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return user
 }
 
 async function getById(user_id) {
     const user = await db.User.sequelize.query(`SELECT * FROM users inner join roles on users.role_id = roles.role_id where users.user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 
 // statistics functions
 async function getAdvertCreatedByUser(user_id) {
     const user = await db.User.sequelize.query(`select count(user_id_create) as created from users inner join adverts on user_id_create = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 async function getAdvertsSelectedByUser(user_id) {
     const user = await db.User.sequelize.query(`select count(user_id_select)  as selected from users inner join adverts on user_id_select = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 async function getAverageRatingUser(user_id) {
     const user = await db.User.sequelize.query(`select avg(comment_rating) as average from users inner join comments on user_id_receive = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 
 async function getCommentUserSend(user_id) {
     const user = await db.User.sequelize.query(`select * from users inner join comments on user_id_send = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return user
 }
 
 async function getCommentUserReceived(user_id) {
     const user = await db.User.sequelize.query(`select * from users inner join comments on user_id_receive = user_id where user_id =  ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return user
 }
 
@@ -260,7 +260,7 @@ async function getUserFavouriteAdverts(user_id) {
     on users.user_id = user_has_favourites.user_id 
     inner join adverts on user_has_favourites.advert_id = adverts.advert_id
     where users.user_id =  ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) {throw "User not found";}
+    if (!user) {throw 'User not found';}
     return user
 }
 

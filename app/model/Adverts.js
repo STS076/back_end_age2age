@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 // const htmlspecialchars = require('htmlspecialchars');
 
 function adverts(sequelize) {
@@ -66,28 +66,28 @@ function adverts(sequelize) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "categories",
-        key: "category_id"
+        model: 'categories',
+        key: 'category_id'
       }
     },
     user_id_create: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "users",
-        key: "user_id"
+        model: 'users',
+        key: 'user_id'
       }
     },
     user_id_select: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: "users",
-        key: "user_id"
+        model: 'users',
+        key: 'user_id'
       }
     },
   }
-  return sequelize.define("adverts", attributes);
+  return sequelize.define('adverts', attributes);
 
 };
 

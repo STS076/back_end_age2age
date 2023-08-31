@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 // const htmlspecialchars = require('htmlspecialchars');
 
 module.exports = comments;
@@ -33,18 +33,18 @@ function comments(sequelize) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "users",
-        key: "user_id"
+        model: 'users',
+        key: 'user_id'
       }
     },
     user_id_receive: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "users",
-        key: "user_id"
+        model: 'users',
+        key: 'user_id'
       }
     },
   };
-  return sequelize.define("comments", attributes);
+  return sequelize.define('comments', attributes);
 };

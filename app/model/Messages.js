@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 // const htmlspecialchars = require('htmlspecialchars');
 
 module.exports = messages;
@@ -24,20 +24,20 @@ function messages(sequelize) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "users",
-        key: "user_id"
+        model: 'users',
+        key: 'user_id'
       }
     },
     user_id_receive: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "users",
-        key: "user_id"
+        model: 'users',
+        key: 'user_id'
       }
     }
   };
-  return sequelize.define("messages", attributes);
+  return sequelize.define('messages', attributes);
 }
 
 
