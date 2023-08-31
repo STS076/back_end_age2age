@@ -1,11 +1,11 @@
 const express = require("express");
-var https = require('https');
+var https = require("https");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-require('rootpath')();
-var fs = require('fs');
-const errorHandler = require('_middleware/error-handler');
+require("rootpath")();
+var fs = require("fs");
+const errorHandler = require("_middleware/error-handler");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -13,12 +13,12 @@ app.use(cors());
 
 // parse requests of content-type - application/json
 
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger-output.json')
-const session = require('express-session');
+const swaggerUi = require("swagger-ui-express")
+const swaggerFile = require("./swagger-output.json")
+const session = require("express-session");
 
 app.use(cors({
-  origin: ['http://localhost:3001', 'http://localhost:3000', 'http://localhost:3002'],
+  origin: ["http://localhost:3001", "http://localhost:3000", "http://localhost:3002"],
   credentials: true,
 
 }));
@@ -32,7 +32,7 @@ app.use(cors({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 // app.get("/isConnected", (req, res) => {
 //   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
@@ -60,13 +60,13 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 //   }
 // });
 
-app.use('/users', require('./app/controllers/user.controller'));
-app.use('/adverts', require('./app/controllers/advert.controller'))
-app.use('/role', require('./app/controllers/role.controllers'))
-app.use('/categories', require('./app/controllers/categories.controllers'))
-app.use('/comments', require('./app/controllers/comments.controllers'))
-app.use('/messages', require('./app/controllers/messages.controllers'))
-app.use('/userFavourite', require('./app/controllers/user_has_favouvrite'))
+app.use("/users", require("./app/controllers/user.controller"));
+app.use("/adverts", require("./app/controllers/advert.controller"))
+app.use("/role", require("./app/controllers/role.controllers"))
+app.use("/categories", require("./app/controllers/categories.controllers"))
+app.use("/comments", require("./app/controllers/comments.controllers"))
+app.use("/messages", require("./app/controllers/messages.controllers"))
+app.use("/userFavourite", require("./app/controllers/user_has_favouvrite"))
 
 // global error handler
 app.use(errorHandler);
@@ -75,15 +75,15 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 3000;
 
 // if file exist
-if(fs.existsSync('./certificate/key.pem') && fs.existsSync('./certificate/cert.pem')) {
-  console.log('HTTPS server enabled');
+if(fs.existsSync("./certificate/key.pem") && fs.existsSync("./certificate/cert.pem")) {
+  console.log("HTTPS server enabled");
   var options = {
-    key: fs.readFileSync('./certificate/key.pem'),
-    cert: fs.readFileSync('./certificate/cert.pem')
+    key: fs.readFileSync("./certificate/key.pem"),
+    cert: fs.readFileSync("./certificate/cert.pem")
   };
   var server = https.createServer(options, app);
 }else{
-  console.log('HTTPS server disabled');
+  console.log("HTTPS server disabled");
   var server = app;
 }
 

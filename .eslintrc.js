@@ -21,21 +21,12 @@ module.exports = {
         "ecmaVersion": "latest"
     },
     "rules": {
-        'node/no-unsupported-features/es-syntax': ['error', { ignores: ['modules'] }],
-        'node/no-missing-import': 'off',
-        'node/no-missing-require': 'off',
-        'import/no-unresolved': 'error',
-        'import/named': 'error',
-        'import/default': 'error',
-        'import/namespace': 'error',
-        'import/export': 'error',
-        'import/no-duplicates': 'error',
-        'jest/expect-expect': 'error',
-        'jest/no-mocks-import': 'error',
-        'jest/no-jest-import': 'error',
+        "eqeqeq": "off",
+        "curly": "error",
+        "quotes": ["error", "double"]
     },
     "ignorePatterns": [
-        'node_modules/',
-        '**/docker/**'
+        "node_modules/",
+        "**/docker/**"
     ]
 }

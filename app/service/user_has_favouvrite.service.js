@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require("../db");
 
 module.exports = {
     create,
@@ -21,7 +21,7 @@ async function _deleteAdvert(advert_id) {
 
 async function getAdvert(advert_id) {
     const userPost = await db.User_has_favourite.findByPk(advert_id);
-    if (!userPost) throw 'userPost not found';
+    if (!userPost) {throw "userPost not found";}
     return userPost;
 }
 
