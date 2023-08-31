@@ -3,9 +3,6 @@
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
 const sqlite = require('sqlite3');
-const mysql = require('mysql2/promise');
-const { Sequelize } = require('sequelize');
-const sqlite = require('sqlite3');
 module.exports = db = {};
 
 initialize();
@@ -29,7 +26,6 @@ async function initialize() {
 
     sequelize = new Sequelize(database, user, password, {
       dialect: 'mysql',
-      dialect: 'mysql',
       host: host,
       define: {
         timestamps: false,
@@ -44,12 +40,9 @@ async function initialize() {
 
     // use sqlite
     connection = new sqlite.Database('./db.sqlite');
-    connection = new sqlite.Database('./db.sqlite');
 
 
     sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: './db.sqlite',
       dialect: 'sqlite',
       storage: './db.sqlite',
       define: {
