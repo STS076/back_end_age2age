@@ -28,7 +28,7 @@ module.exports = router;
 
 function nameAppli(req, res, next) {
     res.json({ message: 'Age2Age' })
-
+    res.json({ message: 'Age To Age' })
 }
 
 function registerSchema(req, res, next) {
