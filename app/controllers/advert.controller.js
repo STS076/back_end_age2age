@@ -13,7 +13,7 @@ const htmlspecialchars = require('htmlspecialchars');
 
 router.post('/', registerSchema, create);
 router.get('/', findAllJoinUser);
-router.get('/testFunction', testFunction);
+router.get('/nameAppli', nameAppli);
 router.get('/:advert_id', findOne);
 router.get('/advert/validate', getAdvertToValidate)
 router.get('/advert/geo/:advert_longitude/:advert_latitude', getGeo);
@@ -26,9 +26,9 @@ router.delete('/:advert_id', authorize(), _delete);
 
 module.exports = router;
 
-function testFunction(req, res, next) {
-    res.json({ message: 'It\'s work !' })
-
+function nameAppli(req, res, next) {
+    res.json({ message: 'Age2Age' })
+    res.json({ message: 'Age To Age' })
 }
 
 function registerSchema(req, res, next) {
