@@ -1,5 +1,5 @@
-const db = require('../db');
-const { QueryTypes } = require('sequelize');
+const db = require("../db");
+const { QueryTypes } = require("sequelize");
 
 
 module.exports = {
@@ -73,7 +73,7 @@ async function _delete(advert_id) {
 
 async function getAdvert(advert_id) {
     const advert = await db.Advert.findByPk(advert_id);
-    if (!advert) throw 'advert not found';
+    if (!advert) {throw "advert not found";}
     return advert;
 }
 
@@ -110,7 +110,7 @@ async function findAdvertByCategory(category_id) {
 }
 
 async function getAdvertToValidate() {
-    const advert = await db.Advert.sequelize.query(`SELECT count(advert_id) as countadverts FROM adverts where advert_active = 0`, { type: QueryTypes.SELECT })
+    const advert = await db.Advert.sequelize.query("SELECT count(advert_id) as countadverts FROM adverts where advert_active = 0", { type: QueryTypes.SELECT })
     return advert
 }
 

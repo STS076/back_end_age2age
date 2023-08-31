@@ -1,16 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Joi = require('joi');
-const validateRequest = require('../../_middleware/validate-request');
-const categoryService = require('../service/category.service');
-const { QueryTypes } = require('sequelize');
-const authorize = require('../../_middleware/authorize')
+const Joi = require("joi");
+const validateRequest = require("../../_middleware/validate-request");
+const categoryService = require("../service/category.service");
+const { QueryTypes } = require("sequelize");
+const authorize = require("../../_middleware/authorize")
 
-router.post('/', registerSchema, create);
-router.get('/', findAll);
-router.get('/:category_id', findOne);
-router.put('/:category_id', authorize(), updateSchema, update);
-router.delete('/:category_id', authorize(), _delete);
+router.post("/", registerSchema, create);
+router.get("/", findAll);
+router.get("/:category_id", findOne);
+router.put("/:category_id", authorize(), updateSchema, update);
+router.delete("/:category_id", authorize(), _delete);
 
 module.exports = router;
 
@@ -26,7 +26,7 @@ function registerSchema(req, res, next) {
 
 function create(req, res, next) {
     categoryService.create(req.body)
-        .then(() => res.json({ message: `category créée` }))
+        .then(() => res.json({ message: "category créée" }))
         .catch(next);
 
 }
@@ -45,8 +45,8 @@ function findOne(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schema = Joi.object({
-        category_type: (Joi.string()).empty(''),
-        category_active: (Joi.boolean()).empty(''),
+        category_type: (Joi.string()).empty(""),
+        category_active: (Joi.boolean()).empty(""),
 
     });
     validateRequest(req, next, schema);
@@ -60,6 +60,6 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
     categoryService.delete(req.params.category_id)
-        .then(() => res.json({ message: 'category supprimé' }))
+        .then(() => res.json({ message: "category supprimé" }))
         .catch(next);
 }

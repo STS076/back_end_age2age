@@ -1,4 +1,4 @@
-const swaggerAutogen = require('swagger-autogen')()
+const swaggerAutogen = require("swagger-autogen")()
 
 
 const doc = {
@@ -9,9 +9,9 @@ const doc = {
     },
     host: "localhost:3000",
     basePath: "/",
-    schemes: ['http', 'https'],
-    consumes: ['application/json'],
-    produces: ['application/json'],
+    schemes: ["http", "https"],
+    consumes: ["application/json"],
+    produces: ["application/json"],
     tags: [
     ],
     securityDefinitions: {
@@ -48,9 +48,9 @@ const doc = {
     // }
 }
 
-const outputFile = './swagger-output.json'
-const endpointsFiles = ['./index.js']
+const outputFile = "./swagger-output.json"
+const endpointsFiles = ["./index.js"]
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
-    require('./index.js')
+    require("./index.js")
 })

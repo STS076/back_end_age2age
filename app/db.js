@@ -1,8 +1,8 @@
 // const mysql = require("mysql");
 
-const mysql = require('mysql2/promise');
-const { Sequelize } = require('sequelize');
-const sqlite = require('sqlite3');
+const mysql = require("mysql2/promise");
+const { Sequelize } = require("sequelize");
+const sqlite = require("sqlite3");
 module.exports = db = {};
 
 initialize();
@@ -25,7 +25,7 @@ async function initialize() {
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
     sequelize = new Sequelize(database, user, password, {
-      dialect: 'mysql',
+      dialect: "mysql",
       host: host,
       define: {
         timestamps: false,
@@ -39,12 +39,12 @@ async function initialize() {
   }else{
 
     // use sqlite
-    connection = new sqlite.Database('./db.sqlite');
+    connection = new sqlite.Database("./db.sqlite");
     
 
     sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: './db.sqlite',
+      dialect: "sqlite",
+      storage: "./db.sqlite",
       define: {
         timestamps: false,
       },
@@ -53,15 +53,14 @@ async function initialize() {
     console.log("no db config")
   }
 
-  // init models and add them to the exported db object
-  db.User = require('./model/Users')(sequelize);
-  db.Advert = require('./model/Adverts')(sequelize);
-  db.Roles = require('./model/Roles')(sequelize);
-  db.Categories = require('./model/Categories')(sequelize);
-  db.Comments = require('./model/Comments')(sequelize);
-  db.Messages = require('./model/Messages')(sequelize);
-  db.User_has_favourite = require('./model/UserHasFavourite')(sequelize);
-  
+  // init models and add them to the exported db object  db.User = require("./model/Users")(sequelize);
+  db.Advert = require("./model/Adverts")(sequelize);
+  db.Roles = require("./model/Roles")(sequelize);
+  db.Categories = require("./model/Categories")(sequelize);
+  db.Comments = require("./model/Comments")(sequelize);
+  db.Messages = require("./model/Messages")(sequelize);
+  db.User_has_favourite = require("./model/UserHasFavourite")(sequelize);
+    
 
   
   // sync all models with database

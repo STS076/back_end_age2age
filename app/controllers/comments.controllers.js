@@ -1,19 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Joi = require('joi');
-const validateRequest = require('../../_middleware/validate-request');
-const commentService = require('../service/comment.service');
-const { QueryTypes } = require('sequelize');
-const authorize = require('../../_middleware/authorize')
+const Joi = require("joi");
+const validateRequest = require("../../_middleware/validate-request");
+const commentService = require("../service/comment.service");
+const { QueryTypes } = require("sequelize");
+const authorize = require("../../_middleware/authorize")
 
-router.post('/', authorize(), registerSchema, create);
-router.get('/', authorize(), findAll);
-router.get('/comment/validate', getCommentToValidate)
-router.get('/:comment_id', authorize(), findOne);
-router.get('/user/send/:user_id_send', authorize(), getCommentSend);
-router.get('/user/receive/:user_id_receive', getCommentReceive);
-router.put('/:comment_id', authorize(), updateSchema, update);
-router.delete('/:comment_id', authorize(), _delete);
+router.post("/", authorize(), registerSchema, create);
+router.get("/", authorize(), findAll);
+router.get("/comment/validate", getCommentToValidate)
+router.get("/:comment_id", authorize(), findOne);
+router.get("/user/send/:user_id_send", authorize(), getCommentSend);
+router.get("/user/receive/:user_id_receive", getCommentReceive);
+router.put("/:comment_id", authorize(), updateSchema, update);
+router.delete("/:comment_id", authorize(), _delete);
 
 module.exports = router;
 
@@ -32,7 +32,7 @@ function registerSchema(req, res, next) {
 
 function create(req, res, next) {
     commentService.create(req.body)
-        .then(() => res.json({ message: `comment créé` }))
+        .then(() => res.json({ message: "comment créé" }))
         .catch(next);
 };
 
@@ -71,10 +71,10 @@ function getCommentSend(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schema = Joi.object({
-        comment_rating: (Joi.number()).empty(''),
-        comment_description: (Joi.string()).empty(''),
-        comment_active: Joi.boolean().empty(''),
-        user_id_receive: (Joi).number().empty(''),
+        comment_rating: (Joi.number()).empty(""),
+        comment_description: (Joi.string()).empty(""),
+        comment_active: Joi.boolean().empty(""),
+        user_id_receive: (Joi).number().empty(""),
     });
     validateRequest(req, next, schema);
 }
@@ -87,6 +87,6 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
     commentService.delete(req.params.comment_id)
-        .then(() => res.json({ message: 'commentaire supprimé' }))
+        .then(() => res.json({ message: "commentaire supprimé" }))
         .catch(next);
 };
