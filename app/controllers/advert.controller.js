@@ -27,7 +27,7 @@ router.delete('/:advert_id', authorize(), _delete);
 module.exports = router;
 
 function nameAppli(req, res, next) {
-    res.json({ message: 'Age2Age' })
+    // res.json({ message: 'Age2Age' })
     res.json({ message: 'Age To Age' })
 }
 
