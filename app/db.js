@@ -3,6 +3,9 @@
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
 const sqlite = require('sqlite3');
+const mysql = require('mysql2/promise');
+const { Sequelize } = require('sequelize');
+const sqlite = require('sqlite3');
 module.exports = db = {};
 
 initialize();
@@ -10,14 +13,14 @@ initialize();
 async function initialize() {
 
   var dbConfig = null
-  try{
+  try {
     dbConfig = require('./config/db.config.json');
-  }catch(e){
+  } catch (e) {
   }
 
   var connection = null
   var sequelize = null
-  if(dbConfig){
+  if (dbConfig) {
     // create db if it doesn't already exist
     const { host, port, user, password, database } = dbConfig.database;
     connection = await mysql.createConnection({ host, port, user, password });
@@ -25,6 +28,7 @@ async function initialize() {
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
     sequelize = new Sequelize(database, user, password, {
+      dialect: 'mysql',
       dialect: 'mysql',
       host: host,
       define: {
@@ -36,20 +40,23 @@ async function initialize() {
       port: port
     });
 
-  }else{
+  } else {
 
     // use sqlite
     connection = new sqlite.Database('./db.sqlite');
-    
+    connection = new sqlite.Database('./db.sqlite');
+
 
     sequelize = new Sequelize({
+      dialect: 'sqlite',
+      storage: './db.sqlite',
       dialect: 'sqlite',
       storage: './db.sqlite',
       define: {
         timestamps: false,
       },
     });
-    
+
     console.log('no db config')
   }
 
@@ -61,8 +68,44 @@ async function initialize() {
   db.Comments = require('./model/Comments')(sequelize);
   db.Messages = require('./model/Messages')(sequelize);
   db.User_has_favourite = require('./model/UserHasFavourite')(sequelize);
-    
-  
+
+
   // sync all models with database
   await sequelize.sync();
+
+  var r = {
+    1: 'modérateur',
+    2: 'admin',
+    3: 'super_admin',
+    4: 'test1',
+    5: 'test2',
+    6: 'user',
+  }
+
+  var roleService = require('./service/role.service');
+  var categoryService = require('./service/category.service');
+  for (var i in r) {
+    try {
+      var role = await roleService.findOne(i);
+
+    } catch (e) {
+      await db.Roles.create({ role_type: r[i] });
+    }
+  }
+
+  var c = {
+    1: 'Electronics',
+    2: 'Clothes',
+    3: 'Furniture',
+    4: 'Books',
+    5: 'Other',
+  }
+
+  for (var i in c) {
+    try {
+      var category = await categoryService.findOne(i)
+    } catch (e) {
+      await db.Categories.create({ category_type: c[i] });
+    }
+  }
 }
