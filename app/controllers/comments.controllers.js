@@ -32,7 +32,7 @@ function registerSchema(req, res, next) {
 
 function create(req, res, next) {
     commentService.create(req.body)
-        .then(() => res.json({ message: `comment créé` }))
+        .then(() => res.json({ message: 'comment créé' }))
         .catch(next);
 };
 

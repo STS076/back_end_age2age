@@ -23,7 +23,7 @@ function registerSchema(req, res, next) {
 
 function create(req, res, next) {
     roleService.create(req.body)
-        .then(() => res.json({ message: `role créé` }))
+        .then(() => res.json({ message: 'role créé' }))
         .catch(next);
 
 }

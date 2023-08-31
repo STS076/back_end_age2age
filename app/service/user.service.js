@@ -1,4 +1,4 @@
-var { secret } = "secret";
+var { secret } = 'secret';
 try{
     var { secret } = require('../config/db.config.json') 
 }catch(e){
@@ -36,7 +36,7 @@ async function authenticate({ user_email_address, user_password }) {
     const user = await db.User.scope('withHash').findOne({ where: { user_email_address } });
 
     if (!user || !(await bcrypt.compare(user_password, user.user_password)))
-        throw 'user_password or user_password is incorrect';
+        {throw 'user_password or user_password is incorrect';}
 
     // authentication successful
     const token = jwt.sign({ sub: user.user_id }, secret, { expiresIn: '7d' });
@@ -204,7 +204,7 @@ async function _delete(user_id) {
 // helper functions
 async function getUser(user_id) {
     const user = await db.User.findByPk(user_id);
-    if (!user) throw 'advert not found';
+    if (!user) {throw 'advert not found';}
     return user;
 }
 
@@ -216,42 +216,42 @@ async function getUserFavourite(user_id) {
     inner join adverts on user_has_favourites.advert_id = adverts.advert_id
     where users.user_id = ${user_id}
     group by users.user_id `, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return user
 }
 
 async function getById(user_id) {
     const user = await db.User.sequelize.query(`SELECT * FROM users inner join roles on users.role_id = roles.role_id where users.user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 
 // statistics functions
 async function getAdvertCreatedByUser(user_id) {
     const user = await db.User.sequelize.query(`select count(user_id_create) as created from users inner join adverts on user_id_create = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 async function getAdvertsSelectedByUser(user_id) {
     const user = await db.User.sequelize.query(`select count(user_id_select)  as selected from users inner join adverts on user_id_select = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 async function getAverageRatingUser(user_id) {
     const user = await db.User.sequelize.query(`select avg(comment_rating) as average from users inner join comments on user_id_receive = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return Object.assign({}, user)
 }
 
 async function getCommentUserSend(user_id) {
     const user = await db.User.sequelize.query(`select * from users inner join comments on user_id_send = user_id where user_id = ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return user
 }
 
 async function getCommentUserReceived(user_id) {
     const user = await db.User.sequelize.query(`select * from users inner join comments on user_id_receive = user_id where user_id =  ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return user
 }
 
@@ -260,7 +260,7 @@ async function getUserFavouriteAdverts(user_id) {
     on users.user_id = user_has_favourites.user_id 
     inner join adverts on user_has_favourites.advert_id = adverts.advert_id
     where users.user_id =  ${user_id}`, { type: QueryTypes.SELECT });
-    if (!user) throw 'User not found';
+    if (!user) {throw 'User not found';}
     return user
 }
 

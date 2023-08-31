@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 var https = require('https');
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 require('rootpath')();
 var fs = require('fs');

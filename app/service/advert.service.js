@@ -73,12 +73,12 @@ async function _delete(advert_id) {
 
 async function getAdvert(advert_id) {
     const advert = await db.Advert.findByPk(advert_id);
-    if (!advert) throw 'advert not found';
+    if (!advert) {throw 'advert not found';}
     return advert;
 }
 
 async function findAllJoinUser() {
-    const users = await db.Advert.sequelize.query("SELECT advert_id, advert_title, advert_description, advert_active, adverts.createdAt, adverts.updatedAt, advert_archive, advert_selected, advert_address, advert_zip_code, advert_city, advert_department, advert_latitude, advert_longitude, category_id, user_id_create, user_id_select, user_pseudo, user_firstname, user_lastname FROM adverts inner join users on user_id_create = user_id", { type: QueryTypes.SELECT });
+    const users = await db.Advert.sequelize.query('SELECT advert_id, advert_title, advert_description, advert_active, adverts.createdAt, adverts.updatedAt, advert_archive, advert_selected, advert_address, advert_zip_code, advert_city, advert_department, advert_latitude, advert_longitude, category_id, user_id_create, user_id_select, user_pseudo, user_firstname, user_lastname FROM adverts inner join users on user_id_create = user_id', { type: QueryTypes.SELECT });
     return users
 }
 
@@ -110,7 +110,7 @@ async function findAdvertByCategory(category_id) {
 }
 
 async function getAdvertToValidate() {
-    const advert = await db.Advert.sequelize.query(`SELECT count(advert_id) as countadverts FROM adverts where advert_active = 0`, { type: QueryTypes.SELECT })
+    const advert = await db.Advert.sequelize.query('SELECT count(advert_id) as countadverts FROM adverts where advert_active = 0', { type: QueryTypes.SELECT })
     return advert
 }
 

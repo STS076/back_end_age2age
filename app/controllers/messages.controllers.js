@@ -29,7 +29,7 @@ function registerSchema(req, res, next) {
 
 function create(req, res, next) {
     messageService.create(req.body)
-        .then(() => res.json({ message: `message créé` }))
+        .then(() => res.json({ message: 'message créé' }))
         .catch(next);
 };
 

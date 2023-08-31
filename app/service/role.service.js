@@ -37,6 +37,6 @@ async function _delete(role_id) {
 
 async function getRole(role_id) {
     const role = await db.Roles.findByPk(role_id);
-    if (!role) throw 'role not found';
+    if (!role) {throw 'role not found';}
     return role;
 }

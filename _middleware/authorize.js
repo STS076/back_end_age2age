@@ -1,6 +1,6 @@
 const { expressjwt: jwt } = require('express-jwt');
 // const jwt = require('express-jwt');
-var secret = "secret";
+var secret = 'secret';
 
 try{
     var { secret: secret } = require('../config/db.config.json') 
@@ -22,7 +22,7 @@ function authorize() {
             const user = await db.User.findByPk(req.auth.sub);
             // check user still exists
             if (!user)
-                return res.status(401).json({ message: 'Unauthorized' });
+                {return res.status(401).json({ message: 'Unauthorized' });}
             // authorization successful
             req.user = user.get();
             next();

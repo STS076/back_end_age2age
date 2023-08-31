@@ -26,7 +26,7 @@ function registerSchema(req, res, next) {
 
 function create(req, res, next) {
     categoryService.create(req.body)
-        .then(() => res.json({ message: `category créée` }))
+        .then(() => res.json({ message: 'category créée' }))
         .catch(next);
 
 }

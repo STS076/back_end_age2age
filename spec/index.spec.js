@@ -19,8 +19,8 @@ async function initialize() {
 
 const { phoneValidation, emailValidation } = require('../app/service/user.service');
 const adverts = require('../app/model/Adverts');
-let phoneNumberIncorrect = "g"
-let phoneNumberCorrect = "0667495721"
+let phoneNumberIncorrect = 'g'
+let phoneNumberCorrect = '0667495721'
 
 describe('Test pour check les numéro de téléphones', function () {
     it('Si le format est bon', function () {
@@ -31,8 +31,8 @@ describe('Test pour check les numéro de téléphones', function () {
     });
 });
 
-let emailCorrect = "toto@gmail.com"
-let emailIncorrect = "jksdrgjebzrb"
+let emailCorrect = 'toto@gmail.com'
+let emailIncorrect = 'jksdrgjebzrb'
 
 describe('Test pour check les emails', function () {
     it('Si le format est bon', function () {
@@ -45,7 +45,7 @@ describe('Test pour check les emails', function () {
 
 (async () => {
 
-    let pseudo = "totototo"
+    let pseudo = 'totototo'
     let roleExpected = 2;
     var idUser = null;
     describe('Test Utilisateurs', () => {
@@ -119,8 +119,8 @@ describe('Test pour check les emails', function () {
 
     describe('Test Annonces', () => {
 
-        let title = "test"
-        let description = "test2"
+        let title = 'test'
+        let description = 'test2'
         var advertId = null;
         beforeAll(async () => {
             await new Promise(resolve => setTimeout(() => resolve(), 2000));
@@ -209,7 +209,7 @@ describe('Test pour check les emails', function () {
 
 
     describe('Test Roles', () => {
-        let title = "Jouets"
+        let title = 'Jouets'
 
         beforeAll(async () => {
             await new Promise(resolve => setTimeout(() => resolve(), 3000));

@@ -13,7 +13,7 @@ module.exports = {
 
 
 async function findAll() {
-    const message = await db.Messages.sequelize.query(`select message_body, message_send_date, message_id, user_id_send, user_id_receive, s.user_firstname as firstnameSend, s.user_lastname as lastnameSend, r.user_firstname as firstnameReceive, r.user_lastname as lastnameReceive  from messages inner join users s on user_id_send = s.user_id  inner join users r on user_id_receive = r.user_id`, { type: QueryTypes.SELECT });
+    const message = await db.Messages.sequelize.query('select message_body, message_send_date, message_id, user_id_send, user_id_receive, s.user_firstname as firstnameSend, s.user_lastname as lastnameSend, r.user_firstname as firstnameReceive, r.user_lastname as lastnameReceive  from messages inner join users s on user_id_send = s.user_id  inner join users r on user_id_receive = r.user_id', { type: QueryTypes.SELECT });
     return message
 }
 
@@ -51,19 +51,19 @@ async function _delete(message_id) {
 
 async function getMessage(message_id) {
     const message = await db.Messages.findByPk(message_id);
-    if (!message) throw 'message not found';
+    if (!message) {throw 'message not found';}
     return message;
 }
 
 async function getMessagesend(user_id_send) {
     const message = await db.Messages.sequelize.query(`select * from messages inner join users on user_id_send = user_id where user_id_send =  ${user_id_send}`, { type: QueryTypes.SELECT });
-    if (!message) throw 'User not found';
+    if (!message) {throw 'User not found';}
     return message
 }
 
 async function getMessageReceive(user_id_receive) {
     const message = await db.Messages.sequelize.query(`select * from messages inner join users on user_id_receive = user_id where user_id_receive =  ${user_id_receive}`, { type: QueryTypes.SELECT });
-    if (!message) throw 'User not found';
+    if (!message) {throw 'User not found';}
     return message
 }
 
