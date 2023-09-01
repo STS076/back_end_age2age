@@ -28,7 +28,7 @@ module.exports = router;
 
 function nameAppli(req, res, next) {
     // var name = 'Age2Age'
-    var name = 'Age2Age'
+    var name = 'Age to Age'
     res.json({ message: name })
 }
 
