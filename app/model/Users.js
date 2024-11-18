@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("sequelize")
+const { DataTypes } = require('sequelize');
+const sequelize = require('sequelize')
 // const htmlspecialchars = require('htmlspecialchars');
 
 module.exports = users;
@@ -83,8 +83,8 @@ function users(sequelize) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "roles",
-        key: "role_id"
+        model: 'roles',
+        key: 'role_id'
       }
     },
 
@@ -101,7 +101,7 @@ function users(sequelize) {
 
   };
 
-  return sequelize.define("users", attributes, options);
+  return sequelize.define('users', attributes, options);
 
 }
 

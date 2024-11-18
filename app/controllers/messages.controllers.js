@@ -1,18 +1,18 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Joi = require("joi");
-const validateRequest = require("../../_middleware/validate-request");
-const messageService = require("../service/message.service");
-const { QueryTypes } = require("sequelize");
-const authorize = require("../../_middleware/authorize")
+const Joi = require('joi');
+const validateRequest = require('../../_middleware/validate-request');
+const messageService = require('../service/message.service');
+const { QueryTypes } = require('sequelize');
+const authorize = require('../../_middleware/authorize')
 
-router.post("/", authorize(), registerSchema, create);
-router.get("/", authorize(), findAll);
-router.get("/:message_id", authorize(), findOne);
-router.get("/user/receive/:user_id_receive", authorize(), findMessageReveive);
-router.get("/user/send/:user_id_send", authorize(), findMessageSend);
-router.put("/:message_id", authorize(), updateSchema, update);
-router.delete("/:message_id", authorize(), _delete);
+router.post('/', authorize(), registerSchema, create);
+router.get('/', authorize(), findAll);
+router.get('/:message_id', authorize(), findOne);
+router.get('/user/receive/:user_id_receive', authorize(), findMessageReveive);
+router.get('/user/send/:user_id_send', authorize(), findMessageSend);
+router.put('/:message_id', authorize(), updateSchema, update);
+router.delete('/:message_id', authorize(), _delete);
 
 module.exports = router;
 
@@ -29,7 +29,7 @@ function registerSchema(req, res, next) {
 
 function create(req, res, next) {
     messageService.create(req.body)
-        .then(() => res.json({ message: "message créé" }))
+        .then(() => res.json({ message: 'message créé' }))
         .catch(next);
 };
 
@@ -59,11 +59,11 @@ function findMessageReveive(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schema = Joi.object({
-        message_id: (Joi.number()).empty(""),
-        message_body: (Joi.string()).empty(""),
-        message_send_date: (Joi.date()).empty(""),
-        user_id_send: (Joi.number()).empty(""),
-        user_id_receive: (Joi.number()).empty(""),
+        message_id: (Joi.number()).empty(''),
+        message_body: (Joi.string()).empty(''),
+        message_send_date: (Joi.date()).empty(''),
+        user_id_send: (Joi.number()).empty(''),
+        user_id_receive: (Joi.number()).empty(''),
     });
     validateRequest(req, next, schema);
 };
@@ -76,6 +76,6 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
     messageService.delete(req.params.message_id)
-        .then(() => res.json({ message: "message supprimé" }))
+        .then(() => res.json({ message: 'message supprimé' }))
         .catch(next);
 }

@@ -1,32 +1,32 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true
+    'env': {
+        'browser': true,
+        'commonjs': true,
+        'es2021': true
     },
-    "overrides": [
+    'overrides': [
         {
-            "env": {
-                "node": true
+            'env': {
+                'node': true
             },
-            "files": [
-                ".eslintrc.{js,cjs}"
+            'files': [
+                '.eslintrc.{js,cjs}'
             ],
-            "parserOptions": {
-                "sourceType": "script"
+            'parserOptions': {
+                'sourceType': 'script'
             }
         }
     ],
-    "parserOptions": {
-        "ecmaVersion": "latest"
+    'parserOptions': {
+        'ecmaVersion': 'latest'
     },
-    "rules": {
-        "eqeqeq": "off",
-        "curly": "error",
-        "quotes": ["error", "simple"]
+    'rules': {
+        'eqeqeq': 'off',
+        'curly': 'error',
+        'quotes': ['error', 'single']
     },
-    "ignorePatterns": [
-        "node_modules/",
-        "**/docker/**"
+    'ignorePatterns': [
+        'node_modules/',
+        '**/docker/**'
     ]
 }

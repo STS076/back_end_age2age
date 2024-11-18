@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 // const htmlspecialchars = require('htmlspecialchars');
 
 module.exports = categories;
@@ -22,5 +22,5 @@ function categories(sequelize) {
       allowNull: true
     },
   };
-  return sequelize.define("categories", attributes);
+  return sequelize.define('categories', attributes);
 };

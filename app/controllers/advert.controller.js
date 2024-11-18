@@ -1,34 +1,35 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Joi = require("joi");
-const validateRequest = require("../../_middleware/validate-request");
-const advertService = require("../service/advert.service");
-const { QueryTypes } = require("sequelize");
-const authorize = require("../../_middleware/authorize")
-const users = require("../model/Users");
-const adverts = require("../model/Adverts");
-const htmlspecialchars = require("htmlspecialchars");
+const Joi = require('joi');
+const validateRequest = require('../../_middleware/validate-request');
+const advertService = require('../service/advert.service');
+const { QueryTypes } = require('sequelize');
+const authorize = require('../../_middleware/authorize')
+const users = require('../model/Users');
+const adverts = require('../model/Adverts');
+const htmlspecialchars = require('htmlspecialchars');
 
 
 
-router.post("/", registerSchema, create);
-router.get("/", findAllJoinUser);
-router.get("/testFunction", testFunction);
-router.get("/:advert_id", findOne);
-router.get("/advert/validate", getAdvertToValidate)
-router.get("/advert/geo/:advert_longitude/:advert_latitude", getGeo);
-router.get("/created/:user_id_create", authorize(), findAdvertCreated);
-router.get("/title/:advert_title", findByTitle);
-router.get("/category/:category_id", findAdvertByCategory);
-router.get("/selected/:user_id_select", authorize(), findAdvertSelected);
-router.put("/:advert_id", authorize(), updateSchema, update);
-router.delete("/:advert_id", authorize(), _delete);
+router.post('/', registerSchema, create);
+router.get('/', findAllJoinUser);
+router.get('/nameAppli', nameAppli);
+router.get('/:advert_id', findOne);
+router.get('/advert/validate', getAdvertToValidate)
+router.get('/advert/geo/:advert_longitude/:advert_latitude', getGeo);
+router.get('/created/:user_id_create', authorize(), findAdvertCreated);
+router.get('/title/:advert_title', findByTitle);
+router.get('/category/:category_id', findAdvertByCategory);
+router.get('/selected/:user_id_select', authorize(), findAdvertSelected);
+router.put('/:advert_id', authorize(), updateSchema, update);
+router.delete('/:advert_id', authorize(), _delete);
 
 module.exports = router;
 
-function testFunction(req, res, next) {
-    res.json({ message: "It's work !" })
-
+function nameAppli(req, res, next) {
+    // var name = 'Age2Age'
+    var name = 'Age to Age'
+    res.json({ message: name })
 }
 
 function registerSchema(req, res, next) {
@@ -111,20 +112,20 @@ function getGeo(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schema = Joi.object({
-        advert_title: (Joi.string()).empty(""),
-        advert_description: (Joi.string()).empty(""),
-        advert_active: (Joi.boolean()).empty(""),
-        updatedAt: Joi.date().empty(""),
-        advert_archive: (Joi.boolean()).empty(""),
-        advert_selected: (Joi.boolean()).empty(""),
-        advert_address: (Joi.string()).empty(""),
-        advert_zip_code: (Joi.string()).empty(""),
-        advert_city: (Joi.string()).empty(""),
-        advert_department: (Joi.string()).empty(""),
-        advert_longitude: (Joi.number()).empty(""),
-        advert_latitude: (Joi.number()).empty(""),
-        category_id: (Joi.number()).empty(""),
-        user_id_select: Joi.number().empty("")
+        advert_title: (Joi.string()).empty(''),
+        advert_description: (Joi.string()).empty(''),
+        advert_active: (Joi.boolean()).empty(''),
+        updatedAt: Joi.date().empty(''),
+        advert_archive: (Joi.boolean()).empty(''),
+        advert_selected: (Joi.boolean()).empty(''),
+        advert_address: (Joi.string()).empty(''),
+        advert_zip_code: (Joi.string()).empty(''),
+        advert_city: (Joi.string()).empty(''),
+        advert_department: (Joi.string()).empty(''),
+        advert_longitude: (Joi.number()).empty(''),
+        advert_latitude: (Joi.number()).empty(''),
+        category_id: (Joi.number()).empty(''),
+        user_id_select: Joi.number().empty('')
 
     });
     validateRequest(req, next, schema);
@@ -138,6 +139,6 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
     advertService.delete(req.params.advert_id)
-        .then(() => res.json({ message: "annonce supprimée" }))
+        .then(() => res.json({ message: 'annonce supprimée' }))
         .catch(next);
 }

@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require('../db');
 
 module.exports = {
     findAll,
@@ -40,7 +40,7 @@ async function _delete(category_id) {
 
 async function getCategory(category_id) {
     const category = await db.Categories.findByPk(category_id);
-    if (!category) {throw "category not found";}
+    if (!category) {throw 'category not found';}
     return category;
 }
 

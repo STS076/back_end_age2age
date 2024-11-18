@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 
 module.exports = roles;
 
@@ -17,5 +17,5 @@ function roles(sequelize) {
       allowNull: false,
     },
   };
-  return sequelize.define("roles", attributes);
+  return sequelize.define('roles', attributes);
 };
