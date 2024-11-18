@@ -23,7 +23,7 @@ module.exports = {
     "rules": {
         "eqeqeq": "off",
         "curly": "error",
-        "quotes": ["error", "double"]
+        "quotes": ["error", "simple"]
     },
     "ignorePatterns": [
         "node_modules/",
